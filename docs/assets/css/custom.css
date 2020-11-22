@@ -1,0 +1,211 @@
+a,
+a:hover {
+  text-decoration: none;
+}
+
+#header .content {
+  margin: 0 0 25px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  #header .content img {
+    width: 80px;
+  }
+}
+
+.clearfix:after {
+  content: ".";
+  clear: both;
+  display: block;
+  visibility: hidden;
+  height: 0px;
+}
+
+
+/**
+ * Demo
+ */
+
+#steemit-profile,
+#steemit-ticker {
+  border-radius: 6px;
+  max-width: 360px;
+  margin: 0 auto;
+  background: #fff;
+  border: solid 4px #4696e5;
+}
+
+#steemit-profile .uk-comment-header,
+#steemit-ticker .uk-comment-header {
+  margin-bottom: 5px;
+  border: none;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#steemit-profile .uk-comment-avatar,
+#steemit-ticker .uk-comment-avatar {
+  width: 50px;
+  height: 50px;
+  background-position: center center;
+  background-size: cover;
+}
+
+#steemit-profile .uk-comment-title,
+#steemit-profile .uk-comment-meta {
+  color: #fff;
+}
+
+#steemit-ticker .uk-comment-title,
+#steemit-ticker .uk-comment-meta {
+  color: #999;
+}
+
+#steemit-ticker .uk-comment-title small {
+  font-size: 12px;
+}
+
+#steemit-ticker .uk-comment-meta {
+  font-size: 13px;
+}
+
+#steemit-profile .uk-comment-body,
+#steemit-ticker .uk-comment-body {
+  color: #999;
+}
+
+#steemit-ticker .uk-comment-body {
+  border-top: solid 1px #ccc;
+}
+
+#steemit-ticker .uk-comment-body .uk-text-small {
+  font-size: 13px;
+}
+
+.steemit-post {
+  border-radius: 6px;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 4px;
+  background: #4696e5;
+}
+
+.steemit-post .steemit-post-image {
+  display: block;
+  height: 200px;
+  background-position: center center;
+  background-size: cover;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border: none;
+}
+
+.steemit-post .steemit-post-image:hover {
+  border: none;
+}
+
+.steemit-post .uk-comment-header {
+  margin-bottom: 0;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.steemit-post .uk-comment-body {
+  margin-top: 5px;
+  color: #fff;
+}
+
+pre code {
+  font-size: 15px;
+}
+
+#steemit-full-post {
+  padding: 25px;
+  border: solid 5px #4696e5;
+  border-radius: 5px;
+  max-width: 860px;
+  margin: 0 auto;
+
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+#steemit-full-post br {
+  display: initial !important;
+}
+
+#steemit-full-post h1 * {
+  font-size: 26px;
+  font-weight: bold;
+}
+#steemit-full-post h2 * {
+  font-size: 23px;
+  font-weight: bold;
+}
+#steemit-full-post h3 * {
+  font-size: 20px;
+  font-weight: bold;
+}
+#steemit-full-post h4 * {
+  font-size: 18px;
+  font-weight: bold;
+}
+#steemit-full-post h5 * {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#steemit-full-post .uk-article-title a {
+  color: #666;
+}
+
+#steemit-full-post .uk-article-title a:hover {
+  color: #4696e5;
+}
+
+#steemit-full-post .steemit-full-post-tags > a {
+  background: #fff;
+  border: solid 1px #4696e5 !important;
+  padding: 0 5px;
+  color: #999;
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 15px;
+  font-size: 11px;
+  line-height: 20px;
+}
+
+#steemit-full-post .steemit-full-post-tags > a:hover {
+  text-decoration: none;
+}
+
+#steemit-full-post a {
+  color: #4696e5;
+}
+
+#steemit-full-post em {
+  color: #999;
+}
+
+#steemit-full-post .uk-badge {
+  background: #fff;
+  border: solid 1px #ccc;
+  color: #999;
+  font-size: 9px;
+  font-weight: normal;
+  padding: 0 3px;
+}

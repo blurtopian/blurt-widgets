@@ -1,0 +1,689 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Steemit Widgets - Generator</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.4/css/uikit.almost-flat.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.4/css/components/form-advanced.almost-flat.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro">
+    <link rel="stylesheet" href="assets/css/generator.css">
+</head>
+<body>
+    <nav class="uk-navbar" id="navbar">
+        <a href="generator.html" class="uk-navbar-brand">
+            <img src="images/steemit-logo.png" />
+            <b>Steemit Widget Generator</b>
+        </a>
+        <div class="uk-navbar-content uk-navbar-flip">
+            <a href="index.html">
+                <i class="uk-icon-puzzle-piece"></i>
+                The Plugin
+            </a>
+        </div>
+    </nav>
+
+    <div id="generator">
+        <div v-cloak>
+            <div class="uk-container uk-container-center">
+                <h2 class="uk-margin-large-top uk-text-center uk-width-medium-1-2 uk-container-center">Choose a widget type and a design, adjust the settings to your needs and paste to generated code onto your website.</h2>
+                <form class="uk-form uk-margin-large-top">
+                    <div class="uk-grid uk-grid-small">
+                        <div class="uk-width-1-2">
+                            <label for="type">
+                                Widget
+                            </label>
+                            <select v-model="type" v-on:change="renderPreview" class="uk-form-large uk-width-1-1" id="type">
+                                <option value="profile">Profile</option>
+                                <option value="ticker">Ticker</option>
+                                <option value="blog">Blog</option>
+                                <option value="feed">Feed</option>
+                                <option value="new">New</option>
+                                <option value="hot">Hot</option>
+                                <option value="trending">Trending</option>
+                            </select>
+                        </div>
+                        <div class="uk-width-1-2 uk-margin-bottom" v-if="type == 'ticker'">
+                            <label for="currency">
+                                Currency
+                            </label>
+                            <select v-model="currency" v-on:change="renderPreview" class="uk-form-large uk-width-1-1" id="currency">
+                                <option v-for="currency in currencies" :value="currency.id">{{ currency.name }} ({{ currency.symbol }})</option>
+                            </select>
+                        </div>
+                        <div class="uk-width-1-2 uk-margin-bottom" v-if="type == 'profile' || type == 'blog' || type == 'feed'">
+                            <label for="username">
+                                Username
+                            </label>
+                            <input type="text" v-model="user" v-on:change="renderPreview" class="uk-form-large uk-width-1-1" id="username" autocomplete="off" />
+                        </div>
+                        <div class="uk-width-1-2 uk-margin-bottom" v-if="type == 'new' || type == 'hot' || type == 'trending'">
+                            <label for="tag">
+                                Tag
+                            </label>
+                            <input type="text" v-model="tag" v-on:change="renderPreview" class="uk-form-large uk-width-1-1" id="tag" autocomplete="off" />
+                            <small style="color: #aaa;">Leave empty to show all {{ type }} posts.</small>
+                        </div>
+                        <div v-if="type != 'ticker'" v-bind:class="'uk-width-1-' + (template == 'default' ? '4' : '1')">
+                            <label for="template">
+                                Design
+                            </label>
+                            <select v-model="template" v-on:change="renderPreview" class="uk-form-large uk-width-1-1" id="template">
+                                <option value="default">Default</option>
+                                <option value="condenser">Condenser</option>
+                            </select>
+                        </div>
+                        <div v-if="template == 'default'" class="uk-width-1-4">
+                            <label for="border">
+                                Border
+                            </label>
+                            <input type="number" min="0" class="uk-form-large uk-width-1-1" v-model="border" v-on:change="renderPreview" id="border" />
+                        </div>
+                        <div v-if="template == 'default'" class="uk-width-1-4">
+                            <label for="border-radius">
+                                Border radius
+                            </label>
+                            <input type="number" min="0" class="uk-form-large uk-width-1-1" v-model="borderRadius" v-on:change="renderPreview" id="border-radius" />
+                        </div>
+                        <div v-if="template == 'default'" class="uk-width-1-4">
+                            <label for="color">
+                                Color
+                            </label>
+                            <input type="color" class="uk-form-large uk-width-1-1" v-model="color" v-on:change="renderPreview" id="color" />
+                        </div>
+
+                        <!-- Profile -->
+                        <div class="uk-width-1-1 uk-margin-top" v-if="type == 'profile'">
+                            <div class="uk-grid uk-grid-small">
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showAvatar" v-on:change="renderPreview" />
+                                        Avatar
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showUsername" v-on:change="renderPreview" />
+                                        Username
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showWebsite" v-on:change="renderPreview" />
+                                        Website
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showAbout" v-on:change="renderPreview" />
+                                        About
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showLocation" v-on:change="renderPreview" />
+                                        Location
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showCreated" v-on:change="renderPreview" />
+                                        Joined
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showCover" v-on:change="renderPreview" />
+                                        Cover
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showFollowers" v-on:change="renderPreview" />
+                                        Followers
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showFollowing" v-on:change="renderPreview" />
+                                        Following
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showPosts" v-on:change="renderPreview" />
+                                        Posts
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showVotingPower" v-on:change="renderPreview" />
+                                        Voting power
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showReputation" v-on:change="renderPreview" />
+                                        Reputation
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-2 uk-margin-top">
+                                    <label>
+                                        Reputation precision
+                                        <input type="number" v-model="reputationPrecision" v-on:change="renderPreview" min="0" max="10" autocomplete="off" size="2" />
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-2 uk-margin-top">
+                                    <label>
+                                        Voting power precision
+                                        <input type="number" v-model="votingPowerPrecision" v-on:change="renderPreview" min="0" max="10" autocomplete="off" size="2" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ticker -->
+                        <div class="uk-width-1-1 uk-margin-top" v-if="type == 'ticker'">
+                            <div class="uk-grid uk-grid-small">
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showLogo" v-on:change="renderPreview" />
+                                        Logo
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showName" v-on:change="renderPreview" />
+                                        Name
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showRank" v-on:change="renderPreview" />
+                                        Rank
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showSymbol" v-on:change="renderPreview" />
+                                        Symbol
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="show24HVolumne" v-on:change="renderPreview" />
+                                        24h Volume (USD)
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showAvailableSupply" v-on:change="renderPreview" />
+                                        Available supply
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showTotalSupply" v-on:change="renderPreview" />
+                                        Total supply
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showMarketCap" v-on:change="renderPreview" />
+                                        Market Cap (USD)
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showPercentChange1h" v-on:change="renderPreview" />
+                                        Percentage change (1h)
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showPercentChange24h" v-on:change="renderPreview" />
+                                        Percentage change (24h)
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showPercentChange7d" v-on:change="renderPreview" />
+                                        Percentage change (7d)
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showPriceBTC" v-on:change="renderPreview" />
+                                        Price (BTC)
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showPriceUSD" v-on:change="renderPreview" />
+                                        Price (USD)
+                                    </label>
+                                </div>
+                                <div class="uk-width-2-3"></div>
+                                <div class="uk-width-1-2 uk-margin-top">
+                                    <label>
+                                        USD price precision
+                                        <input type="number" v-model="priceUSDPrecision" v-on:change="renderPreview" min="0" max="10" autocomplete="off" size="2" />
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-2 uk-margin-top">
+                                    <label>
+                                        BTC price precision
+                                        <input type="number" v-model="priceBTCPrecision" v-on:change="renderPreview" min="0" max="10" autocomplete="off" size="2" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Blog/Feed/New/Hot/Trending -->
+                        <div class="uk-width-1-1 uk-margin-top" v-if="type != 'profile' && type != 'ticker'">
+                            <div class="uk-grid uk-grid-small">
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showAuthor" v-on:change="renderPreview" />
+                                        Author
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showReputation" v-on:change="renderPreview" />
+                                        Reputation
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showTitle" v-on:change="renderPreview" />
+                                        Title
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showDate" v-on:change="renderPreview" />
+                                        Date
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showImage" v-on:change="renderPreview" />
+                                        Image
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showUpvotes" v-on:change="renderPreview" />
+                                        Upvotes
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showPayout" v-on:change="renderPreview" />
+                                        Payout
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showComments" v-on:change="renderPreview" />
+                                        Comments
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showResteemed" v-on:change="renderPreview" />
+                                        Resteemed
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3" v-if="type != 'blog'">
+                                    <label>
+                                        <input type="checkbox" v-model="showResteemedBy" v-on:change="renderPreview" />
+                                        Resteemed by
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-3">
+                                    <label>
+                                        <input type="checkbox" v-model="showCategory" v-on:change="renderPreview" />
+                                        Category
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="uk-grid uk-grid-small">
+                                <div class="uk-width-1-2 uk-margin-top">
+                                    <label>
+                                        Number of posts
+                                        <input type="number" v-model="limit" v-on:change="renderPreview" min="1" max="100" autocomplete="off" size="2" />
+                                    </label>
+                                </div>
+                                <div class="uk-width-1-2 uk-margin-top">
+                                    <label>
+                                        Reputation precision
+                                        <input type="number" v-model="reputationPrecision" v-on:change="renderPreview" min="0" max="10" autocomplete="off" size="2" />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Preview -->
+                <h2 class="uk-text-center">Preview</h2>
+                <div id="preview" class="uk-width-medium-1-2 uk-container-center">
+                    <div class="uk-text-center"><i class="uk-icon-spinner uk-icon-spin"></i></div>
+                </div>
+
+                <!-- Code -->
+                <h2 class="uk-text-center">Code</h2>
+                <div v-bind:class="{ 'uk-hidden': template != 'condenser' }">
+                    <label>Place this code in the head section of your website:</label>
+                    <div id="code-head"><div class="uk-text-center"><i class="uk-icon-spinner uk-icon-spin"></i></div></div>
+                </div>
+                <label>Place this code where you want the widget to appear on your website:</label>
+                <div id="code-body"><div class="uk-text-center"><i class="uk-icon-spinner uk-icon-spin"></i></div></div>
+                <label>Place this code before your closing body tag:</label>
+                <div id="code-scripts"><div class="uk-text-center"><i class="uk-icon-spinner uk-icon-spin"></i></div></div>
+
+                <p class="uk-text-large uk-margin-large-top uk-alert">
+                    <i class="uk-icon-exclamation-circle"></i>
+                    If you need an even more individual solution you might want to try <a href="index.html">the plugin</a> this generator is based on.
+                </p>
+            </div>
+
+            <footer id="footer">
+                <a class="github" href="https://github.com/mktcode/steemit-widgets"><i class="uk-icon-github"></i></a>
+                <p>
+                    <i class="uk-icon-btc"></i> BTC Address:</b><br>
+                    <a href="#btc-address" data-uk-modal>1N2v1bPyST4BNv8rvmEzwr22EZQPSefqkt</a>
+                </p>
+                <div id="btc-address" class="uk-modal">
+                    <div class="uk-modal-dialog" style="width: 330px;">
+                        <a class="uk-modal-close uk-close"></a>
+                        <img src="https://blockchain.info/qr?data=1N2v1bPyST4BNv8rvmEzwr22EZQPSefqkt&size=200" alt="" class="uk-width-1-1" /><br>
+                        <sup class="uk-text-small">1N2v1bPyST4BNv8rvmEzwr22EZQPSefqkt</sup>
+                    </div>
+                </div>
+
+                <p class="copyright">Created by <a href="https://steemit.com/@mkt">@mkt</a>.</p>
+            </footer>
+        </div>
+
+        <!-- Templates -->
+
+        <!-- Profile -->
+        <div id="steemit-profile-template-default" class="uk-hidden">
+            <div v-bind:style="'border: solid ' + border + 'px ' + color + '; border-radius: ' + borderRadius + 'px; font-family: Arial, Helvetica, sans-serif;'">
+                <div v-bind:style="profileCoverStyle + ' background-color: ' + color + '; display: flex; border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px;'">
+                    <div v-if="showAvatar" style="background: url(${IMAGE}) center center; background-size: cover; width: 50px; height: 50px; border-radius: 36px; margin: 10px;"></div>
+                    <div style="flex: 1; margin: 10px; line-height: 18px; text-align: left;">
+                        <a v-if="showUsername" href="https://steemit.com/@${USER}" style="color: #fff; text-decoration: none;">@${USER}</a>
+                        <span v-if="showReputation" v-bind:style="'background: ' + color + '; border-radius: 10px; color: #fff; font-size: 11px; padding: 2px 5px; font-weight: bold; border: solid 1px rgba(255,255,255,.5);'">${REPUTATION}</span><br v-if="showUsername || showReputation">
+                        <a v-if="showWebsite" href="${WEBSITE}" style="color: #fff; font-size: 12px; text-decoration: none;">${WEBSITE}</a><br v-if="showWebsite">
+                        <span v-if="showAbout" style="color: #fff; font-size: 12px;">${ABOUT}</span>
+                    </div>
+                </div>
+                <div style="color: #787878; background: #fff;">
+                    <div v-if="showPosts || showFollowers || showFollowing" style="display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 18px; line-height: 21px; padding: 10px 0 5px;">
+                        <div v-if="showPosts" style="display: table-cell;"><b>${POSTCOUNT}</b><br><sup>Posts</sup></div>
+                        <div v-if="showFollowers" style="display: table-cell;"><b>${FOLLOWERS}</b><br><sup>Followers</sup></div>
+                        <div v-if="showFollowing" style="display: table-cell;"><b>${FOLLOWING}</b><br><sup>Following</sup></div>
+                    </div>
+                    <div v-if="showVotingPower || showLocation" style="display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 12px; border-top: solid 1px #ddd; padding: 5px 0;">
+                        <div v-if="showVotingPower" style="display: table-cell;"><span style="width: 15px; height: 15px; display: inline-block; vertical-align: top; margin-right: 3px;"><svg fill="#888888" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129"><g><g><path d="M50.2,39.9c-2.3,0-4.1,1.8-4.1,4.1v41.5c0,2.3,1.8,4.1,4.1,4.1c2.3,0,4.1-1.8,4.1-4.1V44C54.3,41.7,52.4,39.9,50.2,39.9z"/><path d="m30.4,39.9c-2.3,0-4.1,1.8-4.1,4.1v41.5c0,2.3 1.8,4.1 4.1,4.1s4.1-1.8 4.1-4.1v-41.5c0-2.3-1.9-4.1-4.1-4.1z"/><path d="m10.5,105h86.7c2.3,0 4.1-1.8 4.1-4.1v-17.4h17.2c2.3,0 4.1-1.8 4.1-4.1v-30c0-2.3-1.8-4.1-4.1-4.1h-17.2v-17.2c0-2.3-1.8-4.1-4.1-4.1h-86.7c-2.3,0-4.1,1.8-4.1,4.1v72.8c0,2.2 1.9,4.1 4.1,4.1zm90.8-51.5h13.1v21.9h-13.1v-21.9zm-86.7-21.3h78.5v17.2 30 17.4h-78.5v-64.6z"/></g></g></svg></span>Voting Power: ${VOTINGPOWER} %</div>
+                        <div v-if="showCreated" style="display: table-cell;"><span style="width: 15px; height: 15px; display: inline-block; vertical-align: top;"><svg fill="#888888" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"></path></svg></span> Joined: ${CREATED}</div>
+                        <div v-if="showLocation" style="display: table-cell;"><span style="width: 15px; height: 15px; display: inline-block; vertical-align: top;"><svg fill="#888888" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span> ${LOCATION}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="steemit-profile-template-condenser" class="uk-hidden">
+            <div v-bind:style="'font-size: 16px; padding: 10px; font-family: Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif; text-shadow: 1px 1px 4px #000;' + (showCover ? 'background-image: url(${COVERIMAGE}); background-position: center center; background-size: cover;' : 'background: #23579d; background: linear-gradient(180deg,#1a4072 0,#23579d);')">
+                <a href="https://steemit.com/@${USER}" style="color: #fff; text-decoration: none; line-height: 50px; display: blocK; text-align: center; font-size: 25px;">
+                    <span v-if="showAvatar" style="background: url(${IMAGE}) center center; display: inline-block; background-size: cover; width: 50px; height: 50px; border-radius: 36px; vertical-align: middle; margin-right: 10px;"></span>
+                    <b v-if="showUsername">${USER}</b>
+                    <span v-if="showReputation" style="font-size: 20px;">(${REPUTATION})</span>
+                </a>
+                <div style="margin: 10px; line-height: 18px; text-align: center; color: #fff;">
+                    <div v-if="showAbout" style="color: #fff; margin: 8px 0;">${ABOUT}</div>
+                    <div style="margin: 5px 0;">
+                        <span v-if="showFollowers">${FOLLOWERS} followers</span>
+                        <span v-if="(showFollowers && showPosts) || (showFollowers && showFollowing)" style="padding: 0 10px;">|</span>
+                        <span v-if="showPosts">${POSTCOUNT} posts</span>
+                        <span v-if="showPosts && showFollowing" style="padding: 0 10px;">|</span>
+                        <span v-if="showFollowing">${FOLLOWING} following</span>
+                    </div>
+                    <div style="margin: 8px 0;">
+                        <span v-if="showLocation" style="margin: 0 5px;">
+                            <span style="width: 15px; height: 15px; display: inline-block; vertical-align: top; margin-top: 2px;">
+                                <svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+                            </span>
+                            ${LOCATION}
+                        </span>
+                        <a v-if="showWebsite" href="${WEBSITE}" style="color: #fff; text-decoration: none; margin: 0 5px;">
+                            <span style="width: 15px; height: 15px; display: inline-block; vertical-align: top; margin-top: 2px;">
+                                <svg fill="#ffffff" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><path d="M256.5,208H256v0C256.2,208,256.3,208,256.5,208z"></path><path d="M368.5,160H320c0,0,26,17,31.6,48H368h0.5c17.6,0,31.5,13.9,31.5,31.5v32c0,17.6-13.9,32.5-31.5,32.5h-112 c-17.6,0-32.5-14.9-32.5-32.5V240h-48v31.5c0,11.5,2.5,22.5,6.9,32.5c12.6,28.2,40.9,48,73.6,48h112c44.2,0,79.5-36.3,79.5-80.5 v-32C448,195.3,412.7,160,368.5,160z"></path><path d="M329.6,208c-12.1-28.3-40.1-48-73.1-48h-112c-44.2,0-80.5,35.3-80.5,79.5v32c0,44.2,36.3,80.5,80.5,80.5H192 c0,0-25.8-17-32.1-48h-15.4c-17.6,0-32.5-14.9-32.5-32.5v-32c0-17.6,14.9-31.5,32.5-31.5H256h0.5c17.6,0,31.5,13.9,31.5,31.5v32 c0,0.2,0,0.3,0,0.5h48c0-0.2,0-0.3,0-0.5v-32C336,228.3,333.7,217.6,329.6,208z"></path></g></svg>
+                            </span>
+                            ${WEBSITE}
+                        </a>
+                        <span v-if="showCreated" style="margin: 0 5px;">
+                            <span style="width: 15px; height: 15px; display: inline-block; vertical-align: top; margin-top: 2px;">
+                                <svg fill="#ffffff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"></path></svg>
+                            </span>
+                            Joined ${CREATED}
+                        </span>
+                    </div>
+                    <div style="margin: 8px 0;">
+                        <div v-if="showVotingPower">
+                            <span style="width: 15px; height: 15px; display: inline-block; vertical-align: top; margin-top: 2px;">
+                                <svg fill="#ffffff" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 129 129"><g><g><path d="M50.2,39.9c-2.3,0-4.1,1.8-4.1,4.1v41.5c0,2.3,1.8,4.1,4.1,4.1c2.3,0,4.1-1.8,4.1-4.1V44C54.3,41.7,52.4,39.9,50.2,39.9z"/><path d="m30.4,39.9c-2.3,0-4.1,1.8-4.1,4.1v41.5c0,2.3 1.8,4.1 4.1,4.1s4.1-1.8 4.1-4.1v-41.5c0-2.3-1.9-4.1-4.1-4.1z"/><path d="m10.5,105h86.7c2.3,0 4.1-1.8 4.1-4.1v-17.4h17.2c2.3,0 4.1-1.8 4.1-4.1v-30c0-2.3-1.8-4.1-4.1-4.1h-17.2v-17.2c0-2.3-1.8-4.1-4.1-4.1h-86.7c-2.3,0-4.1,1.8-4.1,4.1v72.8c0,2.2 1.9,4.1 4.1,4.1zm90.8-51.5h13.1v21.9h-13.1v-21.9zm-86.7-21.3h78.5v17.2 30 17.4h-78.5v-64.6z"/></g></g></svg>
+                            </span>
+                            Voting Power: ${VOTINGPOWER} %
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ticker -->
+        <div id="steemit-ticker-template-default" class="uk-hidden">
+            <div v-bind:style="'border: solid ' + border + 'px ' + color + '; border-radius: ' + borderRadius + 'px; font-family: Arial, Helvetica, sans-serif;'">
+                <div v-bind:style="'background-color: #fff; display: flex; border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px;'">
+                    <div v-if="showLogo" style="background: url(${IMAGE}) center center; background-size: cover; width: 50px; height: 50px; margin: 10px;"></div>
+                    <div style="flex: 1; margin: 10px; line-height: 18px; text-align: left;">
+                        <span v-if="showRank" v-bind:style="'background: ' + color + '; border-radius: 10px; color: #fff; font-size: 11px; padding: 2px 5px; font-weight: bold; border: solid 1px rgba(255,255,255,.5);'">#${RANK}</span>
+                        <a v-if="showName" href="https://coinmarketcap.com/currencies/${ID}" style="font-size: 17px; line-height: 27px; color: #666; text-decoration: none;">
+                            ${NAME}
+                            <span v-if="showSymbol">(${SYMBOL})</span>
+                        </a>
+                        <a v-if="!showName && showSymbol" href="https://coinmarketcap.com/currencies/${ID}" style="font-size: 17px; line-height: 27px; color: #666; text-decoration: none;">
+                            ${SYMBOL}
+                        </a>
+                        <span v-if="showPercentChange24h">${PERCENT_CHANGE_24H}</span>
+                        <br>
+                        <span v-if="showMarketCap" style="color: #666; font-size: 12px;">Market Cap: $ ${MARKET_CAP_USD}</span><br v-if="showMarketCap">
+                        <span v-if="show24HVolumne" style="color: #666; font-size: 12px;">24h Volume: $ ${24H_VOLUME_USD}</span><br v-if="show24HVolumne">
+                        <span v-if="showAvailableSupply" style="color: #666; font-size: 12px;">Avail. Supply: $ ${AVAILABLE_SUPPLY}</span><br v-if="showAvailableSupply">
+                        <span v-if="showTotalSupply" style="color: #666; font-size: 12px;">Total Supply: $ ${TOTAL_SUPPLY}</span>
+                    </div>
+                </div>
+                <div style="color: #787878; background: #fff;">
+                    <div v-if="showPriceUSD || showPriceBTC" style="display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 18px; line-height: 21px; padding: 10px 0 5px;">
+                        <div v-if="showPriceUSD" style="display: table-cell;"><b>${PRICE_USD} USD</b></div>
+                        <div v-if="showPriceBTC" style="display: table-cell;"><b>${PRICE_BTC} BTC</b></div>
+                    </div>
+                    <div v-if="showPercentChange1h || showPercentChange24h || showPercentChange7d" style="display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 12px; border-top: solid 1px #ddd; padding: 5px 0;">
+                        <div v-if="showPercentChange1h" style="display: table-cell;">1h: ${PERCENT_CHANGE_1H}</div>
+                        <div v-if="showPercentChange24h" style="display: table-cell;">24h: ${PERCENT_CHANGE_24H}</div>
+                        <div v-if="showPercentChange7d" style="display: table-cell;">7d: ${PERCENT_CHANGE_7D}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog -->
+        <div id="steemit-blog-template-default" class="uk-hidden">
+            <div v-bind:style="'border: solid ' + border + 'px ' + color + '; border-radius: ' + borderRadius + 'px; font-family: Arial, Helvetica, sans-serif; margin-bottom: 15px;'">
+                <a href="${URL}" v-if="showImage" v-bind:style="'border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;'"></a>
+                <h2 v-if="showTitle" style="margin: 0; font-size: 16px; text-align: left; line-height: 16px; padding: 7px 10px;">
+                    <span v-if="showResteemed">${RESTEEMED}</span>
+                    <a href="${URL}" style="color: #444; text-decoration: none;">
+                        ${TITLE}
+                    </a>
+                </h2>
+                <div style="font-size: 12px; color: #888; padding: 0 10px; padding-bottom: 5px; background: #fff; text-align: left;">
+                    <span v-if="showDate">${DATE}</span>
+                    <span v-if="showAuthor">by <a href="https://steemit.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${AUTHOR}</a></span>
+                    <span v-if="showReputation" style="border: solid 1px #ccc; border-radius: 10px; padding: 1px 4px; font-size: 11px;">${REPUTATION}</span>
+                    <span v-if="showCategory">in <a href="https://steemit.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${CATEGORY}</a></span>
+                </div>
+                <div v-if="showUpvotes || showComments || showPayout" style="background: #fff; color: #888; border-top: solid 1px #ccc; display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 18px; line-height: 21px; padding: 10px 0 5px;">
+                    <div v-if="showUpvotes" style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Chevron_Up_Circle"><circle cx="16" cy="16" r="15" stroke="#888" fill="none"></circle><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#888"></path></g></svg></span> ${UPVOTES}</b></div>
+                    <div v-if="showComments" style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><path d="M294.1,365.5c-2.6-1.8-7.2-4.5-17.5-4.5H160.5c-34.7,0-64.5-26.1-64.5-59.2V201h-1.8C67.9,201,48,221.5,48,246.5v128.9 c0,25,21.4,40.6,47.7,40.6H112v48l53.1-45c1.9-1.4,5.3-3,13.2-3h89.8c23,0,47.4-11.4,51.9-32L294.1,365.5z" fill="#888"></path><path d="M401,48H183.7C149,48,128,74.8,128,107.8v69.7V276c0,33.1,28,60,62.7,60h101.1c10.4,0,15,2.3,17.5,4.2L384,400v-64h17 c34.8,0,63-26.9,63-59.9V107.8C464,74.8,435.8,48,401,48z" fill="#888"></path></g></svg></span> ${COMMENTS}</b></div>
+                    <div v-if="showPayout" style="display: table-cell;"><b>$${PAYOUT}</b></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="steemit-blog-template-condenser" class="uk-hidden">
+            <div v-bind:style="'font-family: Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif; padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid #e6e6e6;'">
+                <h2 v-if="showTitle" style="margin: 0; font-size: 16px; line-height: 16px; padding: 7px 10px 7px 0; text-align: left;">
+                    <span v-if="showResteemed">${RESTEEMED}</span>
+                    <a href="${URL}" style="color: #333; text-decoration: none;">
+                        <b>${TITLE}</b>
+                    </a>
+                </h2>
+                <div style="font-size: 13px; color: #333; padding-bottom: 5px; text-align: left;">
+                    <span v-if="showDate" style="color: #8a8a8a;">${DATE}</span>
+                    <span v-if="showAuthor">by <a href="https://steemit.com/@${AUTHOR}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${AUTHOR}</a></span>
+                    <span v-if="showReputation" style="border: 1px solid #dadada; border-radius: 50%; padding: 1px 4px; font-size: 11px; color: #8a8a8a;">${REPUTATION}</span>
+                    <span v-if="showCategory">in <a href="https://steemit.com/@${CATEGORY}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${CATEGORY}</a></span>
+                </div>
+                <a href="${URL}" v-if="showImage" v-bind:style="'border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;'"></a>
+                <div v-if="showUpvotes || showComments || showPayout" style="color: #888; display: table; table-layout: fixed; width: 100%; font-size: 14px; line-height: 21px; padding: 10px 0 5px;">
+                    <div v-if="showPayout" style="display: table-cell; font-size: 16px; text-align: left;">$${PAYOUT}</div>
+                    <div style="display: table-cell; text-align: right;">
+                        <span v-if="showUpvotes"><span style="width: 15px; height: 15px; display: inline-block; vertical-align: middle;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#aaa"></path></svg></span> ${UPVOTES}</span>
+                        <span v-if="showUpvotes && showComments" style="color: #cacaca; padding: 0 10px;">|</span>
+                        <span v-if="showComments"><span style="width: 15px; height: 15px; display: inline-block; vertical-align: middle;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><path d="M294.1,365.5c-2.6-1.8-7.2-4.5-17.5-4.5H160.5c-34.7,0-64.5-26.1-64.5-59.2V201h-1.8C67.9,201,48,221.5,48,246.5v128.9 c0,25,21.4,40.6,47.7,40.6H112v48l53.1-45c1.9-1.4,5.3-3,13.2-3h89.8c23,0,47.4-11.4,51.9-32L294.1,365.5z" fill="#cacaca"></path><path d="M401,48H183.7C149,48,128,74.8,128,107.8v69.7V276c0,33.1,28,60,62.7,60h101.1c10.4,0,15,2.3,17.5,4.2L384,400v-64h17 c34.8,0,63-26.9,63-59.9V107.8C464,74.8,435.8,48,401,48z" fill="#cacaca"></path></g></svg></span> ${COMMENTS}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feed -->
+        <div id="steemit-feed-template-default" class="uk-hidden">
+            <div v-bind:style="'border: solid ' + border + 'px ' + color + '; border-radius: ' + borderRadius + 'px; font-family: Arial, Helvetica, sans-serif; margin-bottom: 15px;'">
+                <a href="${URL}" v-if="showImage" v-bind:style="'border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;'"></a>
+                <h2 v-if="showTitle" style="margin: 0; font-size: 16px; line-height: 16px; padding: 7px 10px; text-align: left;">
+                    <span v-if="showResteemed">${RESTEEMED}</span>
+                    <a href="${URL}" style="color: #444; text-decoration: none;">
+                        ${TITLE}
+                    </a>
+                </h2>
+                <div style="font-size: 12px; color: #888; padding: 0 10px; padding-bottom: 5px; background: #fff; text-align: left;">
+                    <span v-if="showDate">${DATE}</span>
+                    <span v-if="showAuthor">by <a href="https://steemit.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${AUTHOR}</a></span>
+                    <span v-if="showReputation" style="border: solid 1px #ccc; border-radius: 10px; padding: 1px 4px; font-size: 11px;">${REPUTATION}</span>
+                    <span v-if="showCategory">in <a href="https://steemit.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${CATEGORY}</a></span>
+                    <br v-if="showResteemedBy">
+                    <span v-if="showResteemedBy">${RESTEEMEDBY}</span>
+                </div>
+                <div v-if="showUpvotes || showComments || showPayout" style="color: #888; background: #fff; border-top: solid 1px #ccc; display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 18px; line-height: 21px; padding: 10px 0 5px;">
+                    <div v-if="showUpvotes" style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Chevron_Up_Circle"><circle cx="16" cy="16" r="15" stroke="#888" fill="none"></circle><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#888"></path></g></svg></span> ${UPVOTES}</b></div>
+                    <div v-if="showComments" style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><path d="M294.1,365.5c-2.6-1.8-7.2-4.5-17.5-4.5H160.5c-34.7,0-64.5-26.1-64.5-59.2V201h-1.8C67.9,201,48,221.5,48,246.5v128.9 c0,25,21.4,40.6,47.7,40.6H112v48l53.1-45c1.9-1.4,5.3-3,13.2-3h89.8c23,0,47.4-11.4,51.9-32L294.1,365.5z" fill="#888"></path><path d="M401,48H183.7C149,48,128,74.8,128,107.8v69.7V276c0,33.1,28,60,62.7,60h101.1c10.4,0,15,2.3,17.5,4.2L384,400v-64h17 c34.8,0,63-26.9,63-59.9V107.8C464,74.8,435.8,48,401,48z" fill="#888"></path></g></svg></span> ${COMMENTS}</b></div>
+                    <div v-if="showPayout" style="display: table-cell;"><b>$${PAYOUT}</b></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="steemit-feed-template-condenser" class="uk-hidden">
+            <div v-bind:style="'font-family: Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif; padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid #e6e6e6;'">
+                <h2 v-if="showTitle" style="margin: 0; font-size: 16px; line-height: 16px; padding: 7px 10px 7px 0; text-align: left;">
+                    <span v-if="showResteemed">${RESTEEMED}</span> <span v-if="showResteemedBy" style="font-size: 12px; color: #8a8a8a;">${RESTEEMEDBY}</span><br v-if="showResteemedBy">
+                    <a href="${URL}" style="color: #333; text-decoration: none;">
+                        <b>${TITLE}</b>
+                    </a>
+                </h2>
+                <div style="font-size: 13px; color: #333; padding-bottom: 5px; text-align: left;">
+                    <span v-if="showDate" style="color: #8a8a8a;">${DATE}</span>
+                    <span v-if="showAuthor">by <a href="https://steemit.com/@${AUTHOR}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${AUTHOR}</a></span>
+                    <span v-if="showReputation" style="border: 1px solid #dadada; border-radius: 50%; padding: 1px 4px; font-size: 11px; color: #8a8a8a;">${REPUTATION}</span>
+                    <span v-if="showCategory">in <a href="https://steemit.com/@${CATEGORY}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${CATEGORY}</a></span>
+                </div>
+                <a href="${URL}" v-if="showImage" v-bind:style="'border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;'"></a>
+                <div v-if="showUpvotes || showComments || showPayout" style="color: #888; display: table; table-layout: fixed; width: 100%; font-size: 14px; line-height: 21px; padding: 10px 0 5px;">
+                    <div v-if="showPayout" style="display: table-cell; font-size: 16px; text-align: left;">$${PAYOUT}</div>
+                    <div style="display: table-cell; text-align: right;">
+                        <span v-if="showUpvotes"><span style="width: 15px; height: 15px; display: inline-block; vertical-align: middle;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#aaa"></path></svg></span> ${UPVOTES}</span>
+                        <span v-if="showUpvotes && showComments" style="color: #cacaca; padding: 0 10px;">|</span>
+                        <span v-if="showComments"><span style="width: 15px; height: 15px; display: inline-block; vertical-align: middle;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><path d="M294.1,365.5c-2.6-1.8-7.2-4.5-17.5-4.5H160.5c-34.7,0-64.5-26.1-64.5-59.2V201h-1.8C67.9,201,48,221.5,48,246.5v128.9 c0,25,21.4,40.6,47.7,40.6H112v48l53.1-45c1.9-1.4,5.3-3,13.2-3h89.8c23,0,47.4-11.4,51.9-32L294.1,365.5z" fill="#cacaca"></path><path d="M401,48H183.7C149,48,128,74.8,128,107.8v69.7V276c0,33.1,28,60,62.7,60h101.1c10.4,0,15,2.3,17.5,4.2L384,400v-64h17 c34.8,0,63-26.9,63-59.9V107.8C464,74.8,435.8,48,401,48z" fill="#cacaca"></path></g></svg></span> ${COMMENTS}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New/Hot/Trending -->
+        <div id="steemit-newhottrending-template-default" class="uk-hidden">
+            <div v-bind:style="'border: solid ' + border + 'px ' + color + '; border-radius: ' + borderRadius + 'px; font-family: Arial, Helvetica, sans-serif; margin-bottom: 15px;'">
+                <a href="${URL}" v-if="showImage" v-bind:style="'border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;'"></a>
+                <h2 v-if="showTitle" style="margin: 0; font-size: 16px; line-height: 16px; padding: 7px 10px; text-align: left;">
+                    <a href="${URL}" style="color: #444; text-decoration: none;">
+                        ${TITLE}
+                    </a>
+                </h2>
+                <div style="font-size: 12px; color: #888; padding: 0 10px; padding-bottom: 5px; background: #fff; text-align: left;">
+                    <span v-if="showDate">${DATE}</span>
+                    <span v-if="showAuthor">by <a href="https://steemit.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${AUTHOR}</a></span>
+                    <span v-if="showReputation" style="border: solid 1px #ccc; border-radius: 10px; padding: 1px 4px; font-size: 11px;">${REPUTATION}</span>
+                    <span v-if="showCategory">in <a href="https://steemit.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${CATEGORY}</a></span>
+                </div>
+                <div v-if="showUpvotes || showComments || showPayout" style="background: #fff; color: #888; border-top: solid 1px #ccc; display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 18px; line-height: 21px; padding: 10px 0 5px;">
+                    <div v-if="showUpvotes" style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Chevron_Up_Circle"><circle cx="16" cy="16" r="15" stroke="#888" fill="none"></circle><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#888"></path></g></svg></span> ${UPVOTES}</b></div>
+                    <div v-if="showComments" style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><path d="M294.1,365.5c-2.6-1.8-7.2-4.5-17.5-4.5H160.5c-34.7,0-64.5-26.1-64.5-59.2V201h-1.8C67.9,201,48,221.5,48,246.5v128.9 c0,25,21.4,40.6,47.7,40.6H112v48l53.1-45c1.9-1.4,5.3-3,13.2-3h89.8c23,0,47.4-11.4,51.9-32L294.1,365.5z" fill="#888"></path><path d="M401,48H183.7C149,48,128,74.8,128,107.8v69.7V276c0,33.1,28,60,62.7,60h101.1c10.4,0,15,2.3,17.5,4.2L384,400v-64h17 c34.8,0,63-26.9,63-59.9V107.8C464,74.8,435.8,48,401,48z" fill="#888"></path></g></svg></span> ${COMMENTS}</b></div>
+                    <div v-if="showPayout" style="display: table-cell;"><b>$${PAYOUT}</b></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="steemit-newhottrending-template-condenser" class="uk-hidden">
+            <div v-bind:style="'font-family: Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif; padding-bottom: 15px; margin-bottom: 15px; border-bottom: 1px solid #e6e6e6;'">
+                <h2 v-if="showTitle" style="margin: 0; font-size: 16px; line-height: 16px; padding: 7px 10px 7px 0; text-align: left;">
+                    <a href="${URL}" style="color: #333; text-decoration: none;">
+                        <b>${TITLE}</b>
+                    </a>
+                </h2>
+                <div style="font-size: 13px; color: #333; padding-bottom: 5px; text-align: left;">
+                    <span v-if="showDate" style="color: #8a8a8a;">${DATE}</span>
+                    <span v-if="showAuthor">by <a href="https://steemit.com/@${AUTHOR}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${AUTHOR}</a></span>
+                    <span v-if="showReputation" style="border: 1px solid #dadada; border-radius: 50%; padding: 1px 4px; font-size: 11px; color: #8a8a8a;">${REPUTATION}</span>
+                    <span v-if="showCategory">in <a href="https://steemit.com/@${CATEGORY}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${CATEGORY}</a></span>
+                </div>
+                <a href="${URL}" v-if="showImage" v-bind:style="'border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;'"></a>
+                <div v-if="showUpvotes || showComments || showPayout" style="color: #888; display: table; table-layout: fixed; width: 100%; font-size: 14px; line-height: 21px; padding: 10px 0 5px;">
+                    <div v-if="showPayout" style="display: table-cell; font-size: 16px">$${PAYOUT}</div>
+                    <div style="display: table-cell; text-align: right;">
+                        <span v-if="showUpvotes"><span style="width: 15px; height: 15px; display: inline-block; vertical-align: middle;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#aaa"></path></svg></span> ${UPVOTES}</span>
+                        <span v-if="showUpvotes && showComments" style="color: #cacaca; padding: 0 10px;">|</span>
+                        <span v-if="showComments"><span style="width: 15px; height: 15px; display: inline-block; vertical-align: middle;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><path d="M294.1,365.5c-2.6-1.8-7.2-4.5-17.5-4.5H160.5c-34.7,0-64.5-26.1-64.5-59.2V201h-1.8C67.9,201,48,221.5,48,246.5v128.9 c0,25,21.4,40.6,47.7,40.6H112v48l53.1-45c1.9-1.4,5.3-3,13.2-3h89.8c23,0,47.4-11.4,51.9-32L294.1,365.5z" fill="#cacaca"></path><path d="M401,48H183.7C149,48,128,74.8,128,107.8v69.7V276c0,33.1,28,60,62.7,60h101.1c10.4,0,15,2.3,17.5,4.2L384,400v-64h17 c34.8,0,63-26.9,63-59.9V107.8C464,74.8,435.8,48,401,48z" fill="#cacaca"></path></g></svg></span> ${COMMENTS}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/2.27.4/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+    <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+    <script src="https://mktcode.github.io/steemit-widgets/assets/js/steemit-widgets.min.js"></script>
+    <script src="assets/js/generator.js"></script>
+</body>
+</html>

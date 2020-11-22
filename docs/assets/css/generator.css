@@ -1,0 +1,50 @@
+[v-cloak] {
+    display: none;
+}
+
+#navbar {
+    border-radius: 0;
+    background-color: #4696e5;
+    background-image: url(images/overlay.png), url(images/pattern-size2.svg);
+    background-position: top left, center center;
+    background-attachment: fixed, fixed;
+    background-size: auto, cover;
+}
+
+#navbar a {
+    color: #fff;
+    text-shadow: none;
+}
+
+#navbar .uk-navbar-brand img {
+    width: 25px;
+}
+
+label {
+    color: #aaa;
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#footer {
+    background: #f7f7f7;
+    border-top: solid 2px #eeeeee;
+    margin-top: 50px;
+    padding: 50px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #b0b0b0;
+}
+
+#footer a {
+    color: #b0b0b0;
+}
+
+#footer .github {
+    font-size: 30px;
+}
+
+#footer .copyright {
+    font-size: 14px;
+}
