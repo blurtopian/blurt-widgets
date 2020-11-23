@@ -2,12 +2,14 @@
  * Blurt Widgets
  *
  * @author mkt <kontakt@markus-kottlaender.de>
+ * @author eastmael <eastmaels@gmail.com>
  * @license MIT
  */
 
 var blurtWidgets = {};
 
 blurtWidgets.updateIntervals = [];
+blurt.api.setOptions({ url: 'https://rpc.blurt.world', useAppbaseApi: true });
 
 // Profile
 blurtWidgets.profile = function(options) {
