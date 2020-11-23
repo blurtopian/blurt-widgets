@@ -27,8 +27,8 @@ a:hover {
  * Demo
  */
 
-#steemit-profile,
-#steemit-ticker {
+#blurt-profile,
+#blurt-ticker {
   border-radius: 6px;
   max-width: 360px;
   margin: 0 auto;
@@ -36,54 +36,54 @@ a:hover {
   border: solid 4px #4696e5;
 }
 
-#steemit-profile .uk-comment-header,
-#steemit-ticker .uk-comment-header {
+#blurt-profile .uk-comment-header,
+#blurt-ticker .uk-comment-header {
   margin-bottom: 5px;
   border: none;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-#steemit-profile .uk-comment-avatar,
-#steemit-ticker .uk-comment-avatar {
+#blurt-profile .uk-comment-avatar,
+#blurt-ticker .uk-comment-avatar {
   width: 50px;
   height: 50px;
   background-position: center center;
   background-size: cover;
 }
 
-#steemit-profile .uk-comment-title,
-#steemit-profile .uk-comment-meta {
+#blurt-profile .uk-comment-title,
+#blurt-profile .uk-comment-meta {
   color: #fff;
 }
 
-#steemit-ticker .uk-comment-title,
-#steemit-ticker .uk-comment-meta {
+#blurt-ticker .uk-comment-title,
+#blurt-ticker .uk-comment-meta {
   color: #999;
 }
 
-#steemit-ticker .uk-comment-title small {
+#blurt-ticker .uk-comment-title small {
   font-size: 12px;
 }
 
-#steemit-ticker .uk-comment-meta {
+#blurt-ticker .uk-comment-meta {
   font-size: 13px;
 }
 
-#steemit-profile .uk-comment-body,
-#steemit-ticker .uk-comment-body {
+#blurt-profile .uk-comment-body,
+#blurt-ticker .uk-comment-body {
   color: #999;
 }
 
-#steemit-ticker .uk-comment-body {
+#blurt-ticker .uk-comment-body {
   border-top: solid 1px #ccc;
 }
 
-#steemit-ticker .uk-comment-body .uk-text-small {
+#blurt-ticker .uk-comment-body .uk-text-small {
   font-size: 13px;
 }
 
-.steemit-post {
+.blurt-post {
   border-radius: 6px;
   max-width: 360px;
   margin: 0 auto;
@@ -91,7 +91,7 @@ a:hover {
   background: #4696e5;
 }
 
-.steemit-post .steemit-post-image {
+.blurt-post .blurt-post-image {
   display: block;
   height: 200px;
   background-position: center center;
@@ -101,17 +101,17 @@ a:hover {
   border: none;
 }
 
-.steemit-post .steemit-post-image:hover {
+.blurt-post .blurt-post-image:hover {
   border: none;
 }
 
-.steemit-post .uk-comment-header {
+.blurt-post .uk-comment-header {
   margin-bottom: 0;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.steemit-post .uk-comment-body {
+.blurt-post .uk-comment-body {
   margin-top: 5px;
   color: #fff;
 }
@@ -120,7 +120,7 @@ pre code {
   font-size: 15px;
 }
 
-#steemit-full-post {
+#blurt-full-post {
   padding: 25px;
   border: solid 5px #4696e5;
   border-radius: 5px;
@@ -144,40 +144,40 @@ pre code {
   hyphens: auto;
 }
 
-#steemit-full-post br {
+#blurt-full-post br {
   display: initial !important;
 }
 
-#steemit-full-post h1 * {
+#blurt-full-post h1 * {
   font-size: 26px;
   font-weight: bold;
 }
-#steemit-full-post h2 * {
+#blurt-full-post h2 * {
   font-size: 23px;
   font-weight: bold;
 }
-#steemit-full-post h3 * {
+#blurt-full-post h3 * {
   font-size: 20px;
   font-weight: bold;
 }
-#steemit-full-post h4 * {
+#blurt-full-post h4 * {
   font-size: 18px;
   font-weight: bold;
 }
-#steemit-full-post h5 * {
+#blurt-full-post h5 * {
   font-size: 16px;
   font-weight: bold;
 }
 
-#steemit-full-post .uk-article-title a {
+#blurt-full-post .uk-article-title a {
   color: #666;
 }
 
-#steemit-full-post .uk-article-title a:hover {
+#blurt-full-post .uk-article-title a:hover {
   color: #4696e5;
 }
 
-#steemit-full-post .steemit-full-post-tags > a {
+#blurt-full-post .blurt-full-post-tags > a {
   background: #fff;
   border: solid 1px #4696e5 !important;
   padding: 0 5px;
@@ -189,19 +189,19 @@ pre code {
   line-height: 20px;
 }
 
-#steemit-full-post .steemit-full-post-tags > a:hover {
+#blurt-full-post .blurt-full-post-tags > a:hover {
   text-decoration: none;
 }
 
-#steemit-full-post a {
+#blurt-full-post a {
   color: #4696e5;
 }
 
-#steemit-full-post em {
+#blurt-full-post em {
   color: #999;
 }
 
-#steemit-full-post .uk-badge {
+#blurt-full-post .uk-badge {
   background: #fff;
   border: solid 1px #ccc;
   color: #999;

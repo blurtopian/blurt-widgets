@@ -1,4 +1,4 @@
-steem.api.setOptions({ url: 'https://api.steemit.com' });
+blurt.api.setOptions({ url: 'https://api.blurt.com' });
 
 var generator = new Vue({
     el: '#generator',
@@ -7,7 +7,7 @@ var generator = new Vue({
         template: 'default',
         user: 'mkt',
         tag: '',
-        currency: 'steem',
+        currency: 'blurt',
         currencies: [],
         showAvatar: true,
         showLogo: true,
@@ -43,8 +43,8 @@ var generator = new Vue({
         showUpvotes: true,
         showPayout: true,
         showComments: true,
-        showResteemed: true,
-        showResteemedBy: true,
+        showReblurted: true,
+        showReblurtedBy: true,
         showCategory: true,
         reputationPrecision: 1,
         votingPowerPrecision: 1,
@@ -54,8 +54,8 @@ var generator = new Vue({
         limit: 10,
         updateInterval: 60,
         updateDelayTimeout: null,
-        scriptSteemjs: '<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>',
-        scriptSteemitWidgets: '<script src="https://mktcode.github.io/steemit-widgets/assets/js/steemit-widgets.min.js"></script>',
+        scriptBlurtjs: '<script src="https://cdn.blurtjs.com/lib/latest/blurt.min.js"></script>',
+        scriptBlurtWidgets: '<script src="https://mktcode.github.io/blurt-widgets/assets/js/blurt-widgets.min.js"></script>',
         scriptMomentjs: '<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>'
     },
     created: function () {
@@ -72,11 +72,11 @@ var generator = new Vue({
             var preview = $('#preview');
             switch (this.type) {
                 case 'profile':
-                    steem.api.getAccounts([this.user], function(err, accounts) {
+                    blurt.api.getAccounts([this.user], function(err, accounts) {
                         if (!err && accounts.length) {
-                            preview.steemitProfile({
+                            preview.blurtProfile({
                                 user: this.user,
-                                template: 'steemit-profile-template-' + this.template,
+                                template: 'blurt-profile-template-' + this.template,
                                 reputationPrecision: this.reputationPrecision,
                                 votingPowerPrecision: this.votingPowerPrecision,
                                 updateInterval: this.updateInterval
@@ -88,22 +88,22 @@ var generator = new Vue({
                     break;
                 case 'ticker':
                     this.template = 'default';
-                    preview.steemitTicker({
+                    preview.blurtTicker({
                         currency: this.currency,
-                        template: 'steemit-ticker-template-' + this.template,
+                        template: 'blurt-ticker-template-' + this.template,
                         priceBTCPrecision: this.priceBTCPrecision,
                         priceUSDPrecision: this.priceUSDPrecision,
                         updateInterval: Math.max(this.updateInterval, 300)
                     });
                     break;
                 case 'blog':
-                    steem.api.getAccounts([this.user], function(err, accounts) {
+                    blurt.api.getAccounts([this.user], function(err, accounts) {
                         if (!err && accounts.length) {
-                            preview.steemitBlog({
+                            preview.blurtBlog({
                                 user: this.user,
                                 limit: this.limit,
-                                template: 'steemit-blog-template-' + this.template,
-                                resteemedIndicator: '<span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path fill="#008800" d="M448,192l-128,96v-64H128v128h248c4.4,0,8,3.6,8,8v48c0,4.4-3.6,8-8,8H72c-4.4,0-8-3.6-8-8V168c0-4.4,3.6-8,8-8h248V96 L448,192z"></path></svg></span>',
+                                template: 'blurt-blog-template-' + this.template,
+                                reblurtedIndicator: '<span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path fill="#008800" d="M448,192l-128,96v-64H128v128h248c4.4,0,8,3.6,8,8v48c0,4.4-3.6,8-8,8H72c-4.4,0-8-3.6-8-8V168c0-4.4,3.6-8,8-8h248V96 L448,192z"></path></svg></span>',
                                 reputationPrecision: this.reputationPrecision,
                                 updateInterval: this.updateInterval,
                                 dateCallback: function (date) {
@@ -116,13 +116,13 @@ var generator = new Vue({
                     }.bind(this));
                     break;
                 case 'feed':
-                    steem.api.getAccounts([this.user], function(err, accounts) {
+                    blurt.api.getAccounts([this.user], function(err, accounts) {
                         if (!err && accounts.length) {
-                            preview.steemitFeed({
+                            preview.blurtFeed({
                                 user: this.user,
                                 limit: this.limit,
-                                template: 'steemit-feed-template-' + this.template,
-                                resteemedIndicator: '<span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path fill="#008800" d="M448,192l-128,96v-64H128v128h248c4.4,0,8,3.6,8,8v48c0,4.4-3.6,8-8,8H72c-4.4,0-8-3.6-8-8V168c0-4.4,3.6-8,8-8h248V96 L448,192z"></path></svg></span>',
+                                template: 'blurt-feed-template-' + this.template,
+                                reblurtedIndicator: '<span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path fill="#008800" d="M448,192l-128,96v-64H128v128h248c4.4,0,8,3.6,8,8v48c0,4.4-3.6,8-8,8H72c-4.4,0-8-3.6-8-8V168c0-4.4,3.6-8,8-8h248V96 L448,192z"></path></svg></span>',
                                 reputationPrecision: this.reputationPrecision,
                                 updateInterval: this.updateInterval,
                                 dateCallback: function (date) {
@@ -135,10 +135,10 @@ var generator = new Vue({
                     }.bind(this));
                     break;
                 case 'new':
-                    preview.steemitNew({
+                    preview.blurtNew({
                         tag: this.tag,
                         limit: this.limit,
-                        template: 'steemit-newhottrending-template-' + this.template,
+                        template: 'blurt-newhottrending-template-' + this.template,
                         reputationPrecision: this.reputationPrecision,
                         updateInterval: this.updateInterval,
                         dateCallback: function (date) {
@@ -147,10 +147,10 @@ var generator = new Vue({
                     });
                     break;
                 case 'hot':
-                    preview.steemitHot({
+                    preview.blurtHot({
                         tag: this.tag,
                         limit: this.limit,
-                        template: 'steemit-newhottrending-template-' + this.template,
+                        template: 'blurt-newhottrending-template-' + this.template,
                         reputationPrecision: this.reputationPrecision,
                         updateInterval: this.updateInterval,
                         dateCallback: function (date) {
@@ -159,10 +159,10 @@ var generator = new Vue({
                     });
                     break;
                 case 'trending':
-                    preview.steemitTrending({
+                    preview.blurtTrending({
                         tag: this.tag,
                         limit: this.limit,
-                        template: 'steemit-newhottrending-template-' + this.template,
+                        template: 'blurt-newhottrending-template-' + this.template,
                         reputationPrecision: this.reputationPrecision,
                         updateInterval: this.updateInterval,
                         dateCallback: function (date) {
@@ -186,15 +186,15 @@ var generator = new Vue({
 
             switch (this.type) {
                 case 'profile':
-                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;steemit-widgets-profile&quot;&gt;&lt;/div&gt;</code></pre>');
+                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;blurt-widgets-profile&quot;&gt;&lt;/div&gt;</code></pre>');
 
-                    var template = document.getElementById('steemit-profile-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
+                    var template = document.getElementById('blurt-profile-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
 
-                    code = this.encodeHTML(this.scriptSteemjs) + nl
-                         + this.encodeHTML(this.scriptSteemitWidgets) + nl
+                    code = this.encodeHTML(this.scriptBlurtjs) + nl
+                         + this.encodeHTML(this.scriptBlurtWidgets) + nl
                          + '&lt;script&gt;' + nl
-                         + '  steemitWidgets.profile({' + nl
-                         + '    element: \'steemit-widgets-profile\',' + nl
+                         + '  blurtWidgets.profile({' + nl
+                         + '    element: \'blurt-widgets-profile\',' + nl
                          + '    template: \'' + this.encodeHTML(template) + '\',' + nl
                          + '    user: \'' + this.user + '\',' + nl
                          + '    reputationPrecision: ' + this.reputationPrecision + ',' + nl
@@ -207,15 +207,15 @@ var generator = new Vue({
                     codeScriptsContainer.html('<pre><code class="html hljs xml">' + code + '</code></pre>');
                     break;
                 case 'ticker':
-                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;steemit-widgets-ticker&quot;&gt;&lt;/div&gt;</code></pre>');
+                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;blurt-widgets-ticker&quot;&gt;&lt;/div&gt;</code></pre>');
 
-                    var template = document.getElementById('steemit-ticker-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
+                    var template = document.getElementById('blurt-ticker-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
 
-                    code = this.encodeHTML(this.scriptSteemjs) + nl
-                         + this.encodeHTML(this.scriptSteemitWidgets) + nl
+                    code = this.encodeHTML(this.scriptBlurtjs) + nl
+                         + this.encodeHTML(this.scriptBlurtWidgets) + nl
                          + '&lt;script&gt;' + nl
-                         + '  steemitWidgets.ticker({' + nl
-                         + '    element: \'steemit-widgets-ticker\',' + nl
+                         + '  blurtWidgets.ticker({' + nl
+                         + '    element: \'blurt-widgets-ticker\',' + nl
                          + '    template: \'' + this.encodeHTML(template) + '\',' + nl
                          + '    currency: \'' + this.currency + '\',' + nl
                          + '    priceBTCPrecision: ' + this.priceBTCPrecision + ',' + nl
@@ -228,20 +228,20 @@ var generator = new Vue({
                     codeScriptsContainer.html('<pre><code class="html hljs xml">' + code + '</code></pre>');
                     break;
                 case 'blog':
-                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;steemit-widgets-blog&quot;&gt;&lt;/div&gt;</code></pre>');
+                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;blurt-widgets-blog&quot;&gt;&lt;/div&gt;</code></pre>');
 
-                    var template = document.getElementById('steemit-blog-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
+                    var template = document.getElementById('blurt-blog-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
 
-                    code = this.encodeHTML(this.scriptSteemjs) + nl
-                         + this.encodeHTML(this.scriptSteemitWidgets) + nl
+                    code = this.encodeHTML(this.scriptBlurtjs) + nl
+                         + this.encodeHTML(this.scriptBlurtWidgets) + nl
                          + this.encodeHTML(this.scriptMomentjs) + nl
                          + '&lt;script&gt;' + nl
-                         + '  steemitWidgets.blog({' + nl
-                         + '    element: \'steemit-widgets-blog\',' + nl
+                         + '  blurtWidgets.blog({' + nl
+                         + '    element: \'blurt-widgets-blog\',' + nl
                          + '    user: \'' + this.user + '\',' + nl
                          + '    limit: ' + this.limit + ',' + nl
                          + '    template: \'' + this.encodeHTML(template) + '\',' + nl
-                         + '    resteemedIndicator: \'' + this.encodeHTML('<span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path d="M448,192l-128,96v-64H128v128h248c4.4,0,8,3.6,8,8v48c0,4.4-3.6,8-8,8H72c-4.4,0-8-3.6-8-8V168c0-4.4,3.6-8,8-8h248V96 L448,192z"></path></svg></span>') + '\',' + nl
+                         + '    reblurtedIndicator: \'' + this.encodeHTML('<span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path d="M448,192l-128,96v-64H128v128h248c4.4,0,8,3.6,8,8v48c0,4.4-3.6,8-8,8H72c-4.4,0-8-3.6-8-8V168c0-4.4,3.6-8,8-8h248V96 L448,192z"></path></svg></span>') + '\',' + nl
                          + '    reputationPrecision: ' + this.reputationPrecision + ',' + nl
                          + '    updateInterval: ' + this.updateInterval + ',' + nl
                          + '    dateCallback: function (date) {return moment.utc(date).from(moment.utc().format(\'YYYY-MM-DD HH:mm:ss\'));}' + nl
@@ -252,20 +252,20 @@ var generator = new Vue({
                     codeScriptsContainer.html('<pre><code class="html hljs xml">' + code + '</code></pre>');
                     break;
                 case 'feed':
-                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;steemit-widgets-feed&quot;&gt;&lt;/div&gt;</code></pre>');
+                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;blurt-widgets-feed&quot;&gt;&lt;/div&gt;</code></pre>');
 
-                    var template = document.getElementById('steemit-feed-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
+                    var template = document.getElementById('blurt-feed-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
 
-                    code = this.encodeHTML(this.scriptSteemjs) + nl
-                         + this.encodeHTML(this.scriptSteemitWidgets) + nl
+                    code = this.encodeHTML(this.scriptBlurtjs) + nl
+                         + this.encodeHTML(this.scriptBlurtWidgets) + nl
                          + this.encodeHTML(this.scriptMomentjs) + nl
                          + '&lt;script&gt;' + nl
-                         + '  steemitWidgets.feed({' + nl
-                         + '    element: \'steemit-widgets-feed\',' + nl
+                         + '  blurtWidgets.feed({' + nl
+                         + '    element: \'blurt-widgets-feed\',' + nl
                          + '    user: \'' + this.user + '\',' + nl
                          + '    limit: ' + this.limit + ',' + nl
                          + '    template: \'' + this.encodeHTML(template) + '\',' + nl
-                         + '    resteemedIndicator: \'' + this.encodeHTML('<span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path d="M448,192l-128,96v-64H128v128h248c4.4,0,8,3.6,8,8v48c0,4.4-3.6,8-8,8H72c-4.4,0-8-3.6-8-8V168c0-4.4,3.6-8,8-8h248V96 L448,192z"></path></svg></span>') + '\',' + nl
+                         + '    reblurtedIndicator: \'' + this.encodeHTML('<span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path d="M448,192l-128,96v-64H128v128h248c4.4,0,8,3.6,8,8v48c0,4.4-3.6,8-8,8H72c-4.4,0-8-3.6-8-8V168c0-4.4,3.6-8,8-8h248V96 L448,192z"></path></svg></span>') + '\',' + nl
                          + '    reputationPrecision: ' + this.reputationPrecision + ',' + nl
                          + '    updateInterval: ' + this.updateInterval + ',' + nl
                          + '    dateCallback: function (date) {return moment.utc(date).from(moment.utc().format(\'YYYY-MM-DD HH:mm:ss\'));}' + nl
@@ -276,16 +276,16 @@ var generator = new Vue({
                     codeScriptsContainer.html('<pre><code class="html hljs xml">' + code + '</code></pre>');
                     break;
                 case 'new':
-                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;steemit-widgets-new&quot;&gt;&lt;/div&gt;</code></pre>');
+                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;blurt-widgets-new&quot;&gt;&lt;/div&gt;</code></pre>');
 
-                    var template = document.getElementById('steemit-newhottrending-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
+                    var template = document.getElementById('blurt-newhottrending-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
 
-                    code = this.encodeHTML(this.scriptSteemjs) + nl
-                         + this.encodeHTML(this.scriptSteemitWidgets) + nl
+                    code = this.encodeHTML(this.scriptBlurtjs) + nl
+                         + this.encodeHTML(this.scriptBlurtWidgets) + nl
                          + this.encodeHTML(this.scriptMomentjs) + nl
                          + '&lt;script&gt;' + nl
-                         + '  steemitWidgets.new({' + nl
-                         + '    element: \'steemit-widgets-new\',' + nl
+                         + '  blurtWidgets.new({' + nl
+                         + '    element: \'blurt-widgets-new\',' + nl
                          + '    user: \'' + this.user + '\',' + nl
                          + '    limit: ' + this.limit + ',' + nl
                          + '    template: \'' + this.encodeHTML(template) + '\',' + nl
@@ -299,16 +299,16 @@ var generator = new Vue({
                     codeScriptsContainer.html('<pre><code class="html hljs xml">' + code + '</code></pre>');
                     break;
                 case 'hot':
-                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;steemit-widgets-hot&quot;&gt;&lt;/div&gt;</code></pre>');
+                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;blurt-widgets-hot&quot;&gt;&lt;/div&gt;</code></pre>');
 
-                    var template = document.getElementById('steemit-newhottrending-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
+                    var template = document.getElementById('blurt-newhottrending-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
 
-                    code = this.encodeHTML(this.scriptSteemjs) + nl
-                         + this.encodeHTML(this.scriptSteemitWidgets) + nl
+                    code = this.encodeHTML(this.scriptBlurtjs) + nl
+                         + this.encodeHTML(this.scriptBlurtWidgets) + nl
                          + this.encodeHTML(this.scriptMomentjs) + nl
                          + '&lt;script&gt;' + nl
-                         + '  steemitWidgets.hot({' + nl
-                         + '    element: \'steemit-widgets-hot\',' + nl
+                         + '  blurtWidgets.hot({' + nl
+                         + '    element: \'blurt-widgets-hot\',' + nl
                          + '    user: \'' + this.user + '\',' + nl
                          + '    limit: ' + this.limit + ',' + nl
                          + '    template: \'' + this.encodeHTML(template) + '\',' + nl
@@ -322,16 +322,16 @@ var generator = new Vue({
                     codeScriptsContainer.html('<pre><code class="html hljs xml">' + code + '</code></pre>');
                     break;
                 case 'trending':
-                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;steemit-widgets-trending&quot;&gt;&lt;/div&gt;</code></pre>');
+                    codeWidgetContainer.html('<pre><code class="html hljs xml">&lt;div id=&quot;blurt-widgets-trending&quot;&gt;&lt;/div&gt;</code></pre>');
 
-                    var template = document.getElementById('steemit-newhottrending-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
+                    var template = document.getElementById('blurt-newhottrending-template-' + this.template).innerHTML.replace(/&quot;/g, '\\\'').replace(/\n/g, '');
 
-                    code = this.encodeHTML(this.scriptSteemjs) + nl
-                         + this.encodeHTML(this.scriptSteemitWidgets) + nl
+                    code = this.encodeHTML(this.scriptBlurtjs) + nl
+                         + this.encodeHTML(this.scriptBlurtWidgets) + nl
                          + this.encodeHTML(this.scriptMomentjs) + nl
                          + '&lt;script&gt;' + nl
-                         + '  steemitWidgets.trending({' + nl
-                         + '    element: \'steemit-widgets-trending\',' + nl
+                         + '  blurtWidgets.trending({' + nl
+                         + '    element: \'blurt-widgets-trending\',' + nl
                          + '    user: \'' + this.user + '\',' + nl
                          + '    limit: ' + this.limit + ',' + nl
                          + '    template: \'' + this.encodeHTML(template) + '\',' + nl
@@ -350,7 +350,7 @@ var generator = new Vue({
             });
         },
         clearPluginIntervals: function () {
-            steemitWidgets.updateIntervals.map(intervalId => clearInterval(intervalId));
+            blurtWidgets.updateIntervals.map(intervalId => clearInterval(intervalId));
         },
         encodeHTML: function (html) {
             return html.replace(/&/g, '&amp;')

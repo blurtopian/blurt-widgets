@@ -1,20 +1,20 @@
 /**
- * Steemit Widgets
+ * Blurt Widgets
  *
  * @author mkt <kontakt@markus-kottlaender.de>
  * @license MIT
  */
 
-var steemitWidgets = {};
+var blurtWidgets = {};
 
-steemitWidgets.updateIntervals = [];
+blurtWidgets.updateIntervals = [];
 
 // Profile
-steemitWidgets.profile = function(options) {
+blurtWidgets.profile = function(options) {
   var settings = Object.assign({
     element: null,
     user: 'mkt',
-    template: '<img width="100" src="${IMAGE}" /><br><a href="https://steemit.com/@${USER}">@${USER}</a>',
+    template: '<img width="100" src="${IMAGE}" /><br><a href="https://blurt.blog/@${USER}">@${USER}</a>',
     reputationPrecision: 0,
     votingPowerPrecision: 2,
     updateInterval: 60,
@@ -31,25 +31,25 @@ steemitWidgets.profile = function(options) {
   if (element) {
     run();
     if (settings.updateInterval) {
-      steemitWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
+      blurtWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
     }
 
     function run() {
-      steem.api.getAccounts([settings.user], function(err, profile) {
+      blurt.api.getAccounts([settings.user], function(err, profile) {
         if (!err && profile.length) {
           var profile = profile[0];
           var metaData = profile.json_metadata ? JSON.parse(profile.json_metadata).profile : {};
 
-          steem.api.getFollowCount(settings.user, function(err, followers) {
-            var template = steemitWidgets.getTemplate(settings.template)
+          blurt.api.getFollowCount(settings.user, function(err, followers) {
+            var template = blurtWidgets.getTemplate(settings.template)
             .replace(/\${USER}/gi, profile.name)
             .replace(/\${NAME}/gi, metaData.name)
             .replace(/\${LOCATION}/gi, metaData.location)
             .replace(/\${WEBSITE}/gi, metaData.website)
-            .replace(/\${IMAGE}/gi, metaData.profile_image ? 'https://steemitimages.com/2048x512/' + metaData.profile_image : '')
-            .replace(/\${COVERIMAGE}/gi, metaData.cover_image ? 'https://steemitimages.com/2048x512/' + metaData.cover_image : '')
-            .replace(/\${REPUTATION}/gi, steemitWidgets.calculateReputation(profile.reputation, settings.reputationPrecision))
-            .replace(/\${VOTINGPOWER}/gi, steemitWidgets.calculateVotingPower(profile.voting_power, profile.last_vote_time, settings.votingPowerPrecision))
+            .replace(/\${IMAGE}/gi, metaData.profile_image ? 'https://blurtimages.com/2048x512/' + metaData.profile_image : '')
+            .replace(/\${COVERIMAGE}/gi, metaData.cover_image ? 'https://blurtimages.com/2048x512/' + metaData.cover_image : '')
+            .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(profile.reputation, settings.reputationPrecision))
+            .replace(/\${VOTINGPOWER}/gi, blurtWidgets.calculateVotingPower(profile.voting_power, profile.last_vote_time, settings.votingPowerPrecision))
             .replace(/\${FOLLOWERS}/gi, followers.follower_count)
             .replace(/\${FOLLOWING}/gi, followers.following_count)
             .replace(/\${POSTCOUNT}/gi, profile.post_count)
@@ -69,14 +69,14 @@ steemitWidgets.profile = function(options) {
 };
 
 // Blog
-steemitWidgets.blog = function(options) {
+blurtWidgets.blog = function(options) {
   var settings = Object.assign({
     element: null,
     user: "mkt",
     limit: 10,
-    template: '<div><a href="${URL}">${TITLE}</a>${RESTEEMED}<br>${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments</div>',
-    defaultImage: 'https://steemitimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/steemit-logo.png',
-    resteemedIndicator: ' (resteemed) ',
+    template: '<div><a href="${URL}">${TITLE}</a>${REBLURTED}<br>${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments</div>',
+    defaultImage: 'https://blurtimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/blurt-logo.png',
+    reblurtedIndicator: ' (reblurted) ',
     payoutPrecision: 2,
     reputationPrecision: 0,
     updateInterval: 60,
@@ -90,25 +90,25 @@ steemitWidgets.blog = function(options) {
   if (element) {
     run();
     if (settings.updateInterval) {
-      steemitWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
+      blurtWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
     }
 
     function run() {
-      steem.api.getDiscussionsByBlog({tag: settings.user, limit: settings.limit}, function(err, posts) {
+      blurt.api.getDiscussionsByBlog({tag: settings.user, limit: settings.limit}, function(err, posts) {
         if (!err && posts.length) {
           var html = '';
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
-            var template = steemitWidgets.getTemplate(settings.template)
-              .replace(/\${URL}/gi, 'https://steemit.com' + posts[i].url)
+            var template = blurtWidgets.getTemplate(settings.template)
+              .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
               .replace(/\${TITLE}/gi, posts[i].title)
               .replace(/\${AUTHOR}/gi, posts[i].author)
-              .replace(/\${REPUTATION}/gi, steemitWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
-              .replace(/\${RESTEEMED}/gi, posts[i].author != settings.user ? settings.resteemedIndicator : '')
-              .replace(/\${RESTEEMEDBY}/gi, posts[i].first_reblogged_by ? 'resteemed by ' + posts[i].first_reblogged_by : '')
+              .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
+              .replace(/\${REBLURTED}/gi, posts[i].author != settings.user ? settings.reblurtedIndicator : '')
+              .replace(/\${REBLURTEDBY}/gi, posts[i].first_reblogged_by ? 'reblurted by ' + posts[i].first_reblogged_by : '')
               .replace(/\${DATE}/gi, settings.dateCallback(new Date(posts[i].created)))
-              .replace(/\${IMAGE}/gi, metaData.image ? 'https://steemitimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
-              .replace(/\${PAYOUT}/gi, steemitWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
+              .replace(/\${IMAGE}/gi, metaData.image ? 'https://blurtimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
+              .replace(/\${PAYOUT}/gi, blurtWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
               .replace(/\${COMMENTS}/gi, posts[i].children)
               .replace(/\${UPVOTES}/gi, posts[i].net_votes)
               .replace(/\${CATEGORY}/gi, posts[i].category);
@@ -127,14 +127,14 @@ steemitWidgets.blog = function(options) {
 };
 
 // Feed
-steemitWidgets.feed = function(options) {
+blurtWidgets.feed = function(options) {
   var settings = Object.assign({
     element: null,
     user: "mkt",
     limit: 10,
-    template: '<div><a href="${URL}">${TITLE}</a>${RESTEEMED}<br>${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments</div>',
-    defaultImage: 'https://steemitimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/steemit-logo.png',
-    resteemedIndicator: ' (resteemed) ',
+    template: '<div><a href="${URL}">${TITLE}</a>${REBLURTED}<br>${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments</div>',
+    defaultImage: 'https://blurtimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/blurt-logo.png',
+    reblurtedIndicator: ' (reblurted) ',
     payoutPrecision: 2,
     reputationPrecision: 0,
     updateInterval: 60,
@@ -148,25 +148,25 @@ steemitWidgets.feed = function(options) {
   if (element) {
     run();
     if (settings.updateInterval) {
-      steemitWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
+      blurtWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
     }
 
     function run() {
-      steem.api.getDiscussionsByFeed({tag: settings.user, limit: settings.limit}, function(err, posts) {
+      blurt.api.getDiscussionsByFeed({tag: settings.user, limit: settings.limit}, function(err, posts) {
         if (!err && posts.length) {
           var html = '';
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
-            var template = steemitWidgets.getTemplate(settings.template)
-            .replace(/\${URL}/gi, 'https://steemit.com' + posts[i].url)
+            var template = blurtWidgets.getTemplate(settings.template)
+            .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
             .replace(/\${TITLE}/gi, posts[i].title)
             .replace(/\${AUTHOR}/gi, posts[i].author)
-            .replace(/\${REPUTATION}/gi, steemitWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
-            .replace(/\${RESTEEMED}/gi, posts[i].first_reblogged_by ? settings.resteemedIndicator : '')
-            .replace(/\${RESTEEMEDBY}/gi, posts[i].first_reblogged_by ? 'resteemed by ' + posts[i].first_reblogged_by : '')
+            .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
+            .replace(/\${REBLURTED}/gi, posts[i].first_reblogged_by ? settings.reblurtedIndicator : '')
+            .replace(/\${REBLURTEDBY}/gi, posts[i].first_reblogged_by ? 'reblurted by ' + posts[i].first_reblogged_by : '')
             .replace(/\${DATE}/gi, settings.dateCallback(new Date(posts[i].created)))
-            .replace(/\${IMAGE}/gi, metaData.image ? 'https://steemitimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
-            .replace(/\${PAYOUT}/gi, steemitWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
+            .replace(/\${IMAGE}/gi, metaData.image ? 'https://blurtimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
+            .replace(/\${PAYOUT}/gi, blurtWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
             .replace(/\${COMMENTS}/gi, posts[i].children)
             .replace(/\${UPVOTES}/gi, posts[i].net_votes)
             .replace(/\${CATEGORY}/gi, posts[i].category);
@@ -185,13 +185,13 @@ steemitWidgets.feed = function(options) {
 };
 
 // New
-steemitWidgets.new = function(options) {
+blurtWidgets.new = function(options) {
   var settings = Object.assign({
     element: null,
     tag: null,
     limit: 10,
     template: '<div><a href="${URL}">${TITLE}</a><br>${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments</div>',
-    defaultImage: 'https://steemitimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/steemit-logo.png',
+    defaultImage: 'https://blurtimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/blurt-logo.png',
     payoutPrecision: 2,
     reputationPrecision: 0,
     updateInterval: 60,
@@ -205,23 +205,23 @@ steemitWidgets.new = function(options) {
   if (element) {
     run();
     if (settings.updateInterval) {
-      steemitWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
+      blurtWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
     }
 
     function run() {
-      steem.api.getDiscussionsByCreated({tag: settings.tag, limit: settings.limit}, function(err, posts) {
+      blurt.api.getDiscussionsByCreated({tag: settings.tag, limit: settings.limit}, function(err, posts) {
         if (!err && posts.length) {
           var html = '';
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
-            var template = steemitWidgets.getTemplate(settings.template)
-            .replace(/\${URL}/gi, 'https://steemit.com' + posts[i].url)
+            var template = blurtWidgets.getTemplate(settings.template)
+            .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
             .replace(/\${TITLE}/gi, posts[i].title)
             .replace(/\${AUTHOR}/gi, posts[i].author)
-            .replace(/\${REPUTATION}/gi, steemitWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
+            .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
             .replace(/\${DATE}/gi, settings.dateCallback(new Date(posts[i].created)))
-            .replace(/\${IMAGE}/gi, metaData.image ? 'https://steemitimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
-            .replace(/\${PAYOUT}/gi, steemitWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
+            .replace(/\${IMAGE}/gi, metaData.image ? 'https://blurtimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
+            .replace(/\${PAYOUT}/gi, blurtWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
             .replace(/\${COMMENTS}/gi, posts[i].children)
             .replace(/\${UPVOTES}/gi, posts[i].net_votes)
             .replace(/\${CATEGORY}/gi, posts[i].category);
@@ -240,13 +240,13 @@ steemitWidgets.new = function(options) {
 };
 
 // Hot
-steemitWidgets.hot = function(options) {
+blurtWidgets.hot = function(options) {
   var settings = Object.assign({
     element: null,
     tag: null,
     limit: 10,
     template: '<div><a href="${URL}">${TITLE}</a><br>${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments</div>',
-    defaultImage: 'https://steemitimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/steemit-logo.png',
+    defaultImage: 'https://blurtimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/blurt-logo.png',
     payoutPrecision: 2,
     reputationPrecision: 0,
     updateInterval: 60,
@@ -260,23 +260,23 @@ steemitWidgets.hot = function(options) {
   if (element) {
     run();
     if (settings.updateInterval) {
-      steemitWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
+      blurtWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
     }
 
     function run() {
-      steem.api.getDiscussionsByHot({tag: settings.tag, limit: settings.limit}, function(err, posts) {
+      blurt.api.getDiscussionsByHot({tag: settings.tag, limit: settings.limit}, function(err, posts) {
         if (!err && posts.length) {
           var html = '';
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
-            var template = steemitWidgets.getTemplate(settings.template)
-            .replace(/\${URL}/gi, 'https://steemit.com' + posts[i].url)
+            var template = blurtWidgets.getTemplate(settings.template)
+            .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
             .replace(/\${TITLE}/gi, posts[i].title)
             .replace(/\${AUTHOR}/gi, posts[i].author)
-            .replace(/\${REPUTATION}/gi, steemitWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
+            .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
             .replace(/\${DATE}/gi, settings.dateCallback(new Date(posts[i].created)))
-            .replace(/\${IMAGE}/gi, metaData.image ? 'https://steemitimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
-            .replace(/\${PAYOUT}/gi, steemitWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
+            .replace(/\${IMAGE}/gi, metaData.image ? 'https://blurtimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
+            .replace(/\${PAYOUT}/gi, blurtWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
             .replace(/\${COMMENTS}/gi, posts[i].children)
             .replace(/\${UPVOTES}/gi, posts[i].net_votes)
             .replace(/\${CATEGORY}/gi, posts[i].category);
@@ -295,13 +295,13 @@ steemitWidgets.hot = function(options) {
 };
 
 // Trending
-steemitWidgets.trending = function(options) {
+blurtWidgets.trending = function(options) {
   var settings = Object.assign({
     element: null,
     tag: null,
     limit: 10,
     template: '<div><a href="${URL}">${TITLE}</a><br>${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments</div>',
-    defaultImage: 'https://steemitimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/steemit-logo.png',
+    defaultImage: 'https://blurtimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/blurt-logo.png',
     payoutPrecision: 2,
     reputationPrecision: 0,
     updateInterval: 60,
@@ -315,23 +315,23 @@ steemitWidgets.trending = function(options) {
   if (element) {
     run();
     if (settings.updateInterval) {
-      steemitWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
+      blurtWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
     }
 
     function run() {
-      steem.api.getDiscussionsByTrending({tag: settings.tag, limit: settings.limit}, function(err, posts) {
+      blurt.api.getDiscussionsByTrending({tag: settings.tag, limit: settings.limit}, function(err, posts) {
         if (!err && posts.length) {
           var html = '';
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
-            var template = steemitWidgets.getTemplate(settings.template)
-            .replace(/\${URL}/gi, 'https://steemit.com' + posts[i].url)
+            var template = blurtWidgets.getTemplate(settings.template)
+            .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
             .replace(/\${TITLE}/gi, posts[i].title)
             .replace(/\${AUTHOR}/gi, posts[i].author)
-            .replace(/\${REPUTATION}/gi, steemitWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
+            .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
             .replace(/\${DATE}/gi, settings.dateCallback(new Date(posts[i].created)))
-            .replace(/\${IMAGE}/gi, metaData.image ? 'https://steemitimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
-            .replace(/\${PAYOUT}/gi, steemitWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
+            .replace(/\${IMAGE}/gi, metaData.image ? 'https://blurtimages.com/2048x512/' + metaData.image[0] : settings.defaultImage)
+            .replace(/\${PAYOUT}/gi, blurtWidgets.getPayout(posts[i]).toFixed(settings.payoutPrecision))
             .replace(/\${COMMENTS}/gi, posts[i].children)
             .replace(/\${UPVOTES}/gi, posts[i].net_votes)
             .replace(/\${CATEGORY}/gi, posts[i].category);
@@ -350,11 +350,11 @@ steemitWidgets.trending = function(options) {
 };
 
 // Full Post
-steemitWidgets.fullPost = function(options) {
+blurtWidgets.fullPost = function(options) {
   var settings = Object.assign({
     element: null,
     author: 'mkt',
-    permlink: 'steemline-beta-multifeed-ui-and-notifications-for-steemit',
+    permlink: 'blurtline-beta-multifeed-ui-and-notifications-for-blurt',
     template: '<div><a href="${URL}">${TITLE}</a><br>${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments<p>${BODY}</p></div>',
     payoutPrecision: 2,
     reputationPrecision: 0,
@@ -368,26 +368,26 @@ steemitWidgets.fullPost = function(options) {
       var tagsHtml = '',
           i;
       for (i = 0; i < tags.length; i++) {
-          tagsHtml += '<a href="https://steemit.com/trending/' + tags[i] + '">' + tags[i] + '</a>';
+          tagsHtml += '<a href="https://blurt.com/trending/' + tags[i] + '">' + tags[i] + '</a>';
       }
-      return '<div class="steemit-full-post-tags">' + tagsHtml + '</div>';
+      return '<div class="blurt-full-post-tags">' + tagsHtml + '</div>';
     }
   }, options);
 
   var element = settings.element instanceof Element ? settings.element : document.getElementById(settings.element);
 
   if (element) {
-    steem.api.getContent(settings.author, settings.permlink, function(err, post) {
+    blurt.api.getContent(settings.author, settings.permlink, function(err, post) {
       if (!err && post) {
         var metaData = JSON.parse(post.json_metadata);
-        var template = steemitWidgets.getTemplate(settings.template)
-        .replace(/\${URL}/gi, 'https://steemit.com' + post.url)
+        var template = blurtWidgets.getTemplate(settings.template)
+        .replace(/\${URL}/gi, 'https://blurt.com' + post.url)
         .replace(/\${TITLE}/gi, post.title)
         .replace(/\${AUTHOR}/gi, post.author)
-        .replace(/\${REPUTATION}/gi, steemitWidgets.calculateReputation(post.author_reputation, settings.reputationPrecision))
+        .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(post.author_reputation, settings.reputationPrecision))
         .replace(/\${DATE}/gi, settings.dateCallback(new Date(post.created)))
         .replace(/\${BODY}/gi, settings.bodyCallback(post.body))
-        .replace(/\${PAYOUT}/gi, steemitWidgets.getPayout(post).toFixed(settings.payoutPrecision))
+        .replace(/\${PAYOUT}/gi, blurtWidgets.getPayout(post).toFixed(settings.payoutPrecision))
         .replace(/\${COMMENTS}/gi, post.children)
         .replace(/\${UPVOTES}/gi, post.net_votes)
         .replace(/\${CATEGORY}/gi, post.category)
@@ -404,10 +404,10 @@ steemitWidgets.fullPost = function(options) {
 };
 
 // Ticker
-steemitWidgets.ticker = function(options) {
+blurtWidgets.ticker = function(options) {
     var settings = Object.assign({
         element: null,
-        currency: 'steem',
+        currency: 'blurt',
         template: '<h3>${NAME} <small>(${SYMBOL})</small></h3><p>USD: ${PRICE_USD}<br>BTC: ${PRICE_BTC}</p>',
         priceBTCPrecision: 8,
         priceUSDPrecision: 2,
@@ -419,7 +419,7 @@ steemitWidgets.ticker = function(options) {
     if (element) {
         run();
         if (settings.updateInterval) {
-            steemitWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
+            blurtWidgets.updateIntervals.push(setInterval(run, settings.updateInterval * 1000));
         }
 
         function run() {
@@ -433,7 +433,7 @@ steemitWidgets.ticker = function(options) {
                         var ticker = JSON.parse(xhr.responseText)[0],
                             html = '';
 
-                        var template = steemitWidgets.getTemplate(settings.template)
+                        var template = blurtWidgets.getTemplate(settings.template)
                             .replace(/\${ID}/g, ticker.id)
                             .replace(/\${NAME}/g, ticker.name)
                             .replace(/\${RANK}/g, ticker.rank)
@@ -443,9 +443,9 @@ steemitWidgets.ticker = function(options) {
                             .replace(/\${AVAILABLE_SUPPLY}/g, parseFloat(ticker.available_supply).toLocaleString(undefined, {minimumFractionDigits: 2}))
                             .replace(/\${TOTAL_SUPPLY}/g, parseFloat(ticker.total_supply).toLocaleString(undefined, {minimumFractionDigits: 2}))
                             .replace(/\${MARKET_CAP_USD}/g, parseFloat(ticker.market_cap_usd).toLocaleString())
-                            .replace(/\${PERCENT_CHANGE_1H}/g, steemitWidgets.getColoredPercentChange(ticker.percent_change_1h))
-                            .replace(/\${PERCENT_CHANGE_7D}/g, steemitWidgets.getColoredPercentChange(ticker.percent_change_7d))
-                            .replace(/\${PERCENT_CHANGE_24H}/g, steemitWidgets.getColoredPercentChange(ticker.percent_change_24h))
+                            .replace(/\${PERCENT_CHANGE_1H}/g, blurtWidgets.getColoredPercentChange(ticker.percent_change_1h))
+                            .replace(/\${PERCENT_CHANGE_7D}/g, blurtWidgets.getColoredPercentChange(ticker.percent_change_7d))
+                            .replace(/\${PERCENT_CHANGE_24H}/g, blurtWidgets.getColoredPercentChange(ticker.percent_change_24h))
                             .replace(/\${PRICE_BTC}/g, parseFloat(ticker.price_btc).toFixed(settings.priceBTCPrecision))
                             .replace(/\${PRICE_USD}/g, parseFloat(ticker.price_usd).toFixed(settings.priceUSDPrecision));
 
@@ -466,7 +466,7 @@ steemitWidgets.ticker = function(options) {
  * Helpers
  */
 
-steemitWidgets.getTemplate = function(template) {
+blurtWidgets.getTemplate = function(template) {
   var templateElement = document.getElementById(template);
   if (templateElement) {
     return templateElement.innerHTML;
@@ -475,7 +475,7 @@ steemitWidgets.getTemplate = function(template) {
   return template;
 }
 
-steemitWidgets.getPayout = function(post) {
+blurtWidgets.getPayout = function(post) {
   if (post.last_payout == '1970-01-01T00:00:00') {
     var payout = post.pending_payout_value.replace(' SBD', '');
     return parseFloat(payout);
@@ -487,7 +487,7 @@ steemitWidgets.getPayout = function(post) {
   return parseFloat(authorPayout) + parseFloat(curatorPayout);
 }
 
-steemitWidgets.getColoredPercentChange = function(percentChange) {
+blurtWidgets.getColoredPercentChange = function(percentChange) {
     if (percentChange > 0) {
         percentChange = '+' + percentChange;
     }
@@ -501,14 +501,14 @@ steemitWidgets.getColoredPercentChange = function(percentChange) {
     }
 }
 
-steemitWidgets.calculateReputation = function(rep, precision) {
+blurtWidgets.calculateReputation = function(rep, precision) {
   var reputation = ((((Math.log10(Math.abs(rep))) - 9) * 9) + 25),
       precision = parseInt(precision);
 
   return (rep < 0 ? '-' : '') + (precision ? reputation.toFixed(precision) : Math.floor(reputation));
 }
 
-steemitWidgets.calculateVotingPower = function(votingPower, lastVoteTime, precision) {
+blurtWidgets.calculateVotingPower = function(votingPower, lastVoteTime, precision) {
   var secondsPassedSinceLastVote = (new Date - new Date(lastVoteTime + "Z")) / 1000;
   votingPower += (10000 * secondsPassedSinceLastVote / 432000);
 
@@ -518,28 +518,28 @@ steemitWidgets.calculateVotingPower = function(votingPower, lastVoteTime, precis
 // jQuery adapter
 
 if (window.jQuery) {
-  jQuery.fn.steemitProfile = function(options) {
-    steemitWidgets.profile(jQuery.extend({element: this[0]}, options));
+  jQuery.fn.blurtProfile = function(options) {
+    blurtWidgets.profile(jQuery.extend({element: this[0]}, options));
   };
-  jQuery.fn.steemitBlog = function(options) {
-    steemitWidgets.blog(jQuery.extend({element: this[0]}, options));
+  jQuery.fn.blurtBlog = function(options) {
+    blurtWidgets.blog(jQuery.extend({element: this[0]}, options));
   };
-  jQuery.fn.steemitFeed = function(options) {
-    steemitWidgets.feed(jQuery.extend({element: this[0]}, options));
+  jQuery.fn.blurtFeed = function(options) {
+    blurtWidgets.feed(jQuery.extend({element: this[0]}, options));
   };
-  jQuery.fn.steemitNew = function(options) {
-    steemitWidgets.new(jQuery.extend({element: this[0]}, options));
+  jQuery.fn.blurtNew = function(options) {
+    blurtWidgets.new(jQuery.extend({element: this[0]}, options));
   };
-  jQuery.fn.steemitHot = function(options) {
-    steemitWidgets.hot(jQuery.extend({element: this[0]}, options));
+  jQuery.fn.blurtHot = function(options) {
+    blurtWidgets.hot(jQuery.extend({element: this[0]}, options));
   };
-  jQuery.fn.steemitTrending = function(options) {
-    steemitWidgets.trending(jQuery.extend({element: this[0]}, options));
+  jQuery.fn.blurtTrending = function(options) {
+    blurtWidgets.trending(jQuery.extend({element: this[0]}, options));
   };
-  jQuery.fn.steemitFullPost = function(options) {
-    steemitWidgets.fullPost(jQuery.extend({element: this[0]}, options));
+  jQuery.fn.blurtFullPost = function(options) {
+    blurtWidgets.fullPost(jQuery.extend({element: this[0]}, options));
   };
-  jQuery.fn.steemitTicker = function(options) {
-    steemitWidgets.ticker(jQuery.extend({element: this[0]}, options));
+  jQuery.fn.blurtTicker = function(options) {
+    blurtWidgets.ticker(jQuery.extend({element: this[0]}, options));
   };
 }

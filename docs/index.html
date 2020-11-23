@@ -6,7 +6,7 @@
 -->
 <html>
 <head>
-    <title>Steemit Widgets</title>
+    <title>Blurt Widgets</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <!--[if lte IE 8]>
@@ -19,21 +19,21 @@
     <link rel="stylesheet" href="assets/css/ie8.css"/><![endif]-->
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="assets/css/ie9.css"/><![endif]-->
-    <link rel="icon" href="images/steemit-logo.png" />
+    <link rel="icon" href="images/blurt-logo.png" />
 </head>
 <body id="top">
 
 <!-- Header -->
 <header id="header">
     <div class="content">
-        <img src="./images/steemit-logo.png"/>
-        <h1><a href="#">Steemit Widgets</a></h1>
-        <p>A simple way to display content<br>from <a href="https://steemit.com">steemit.com</a> on your website.</p>
+        <img src="./images/blurt-logo.png"/>
+        <h1><a href="#">Blurt Widgets</a></h1>
+        <p>A simple way to display content<br>from <a href="https://blurt.com">blurt.com</a> on your website.</p>
         <ul class="actions">
             <li><a href="generator.html" class="button special icon fa-magic">Generator</a></li>
         </ul>
         <ul class="actions">
-            <li><a href="https://github.com/mktcode/steemit-widgets/archive/master.zip" class="button icon fa-download">Download</a>
+            <li><a href="https://github.com/mktcode/blurt-widgets/archive/master.zip" class="button icon fa-download">Download</a>
             </li>
             <li><a href="#demo" class="button icon fa-eye scrolly">Demo</a></li>
             <li><a href="#how-to-use" class="button icon fa-info scrolly">How To Use</a></li>
@@ -61,38 +61,38 @@
         <div class="uk-grid" data-uk-grid-margin>
             <div class="uk-width-medium-1-2">
                 <h3>User Profile</h3>
-                <div id="steemit-profile"><span class="fa fa-spinner fa-spin" style="color: #fff;"></span></div>
+                <div id="blurt-profile"><span class="fa fa-spinner fa-spin" style="color: #fff;"></span></div>
             </div>
             <div class="uk-width-medium-1-2">
                 <h3>Currency Ticker</h3>
-                <div id="steemit-ticker"><span class="fa fa-spinner fa-spin" style="color: #fff;"></span></div>
+                <div id="blurt-ticker"><span class="fa fa-spinner fa-spin" style="color: #fff;"></span></div>
                 <a href="https://coinmarketcap.com" class="uk-text-small uk-text-muted">(coinmarketcap.com)</a>
             </div>
             <div class="uk-width-1-1">
                 <h3 class="uk-margin-large-top">User Blog</h3>
-                <div id="steemit-blog" class="uk-grid"><span class="fa fa-spinner fa-spin uk-padding-remove"
+                <div id="blurt-blog" class="uk-grid"><span class="fa fa-spinner fa-spin uk-padding-remove"
                                                              style="color: #ccc; margin: 0 auto;"></span></div>
             </div>
             <div class="uk-width-1-1">
                 <h3 class="uk-margin-large-top">User Feed</h3>
-                <div id="steemit-feed" class="uk-grid"><span class="fa fa-spinner fa-spin uk-padding-remove"
+                <div id="blurt-feed" class="uk-grid"><span class="fa fa-spinner fa-spin uk-padding-remove"
                                                              style="color: #ccc; margin: 0 auto;"></span></div>
             </div>
             <div class="uk-width-large-1-3 uk-width-medium-1-2">
-                <h3 class="uk-margin-large-top">New in Steemdev</h3>
-                <div id="steemit-new"><span class="fa fa-spinner fa-spin" style="color: #ccc;"></span></div>
+                <h3 class="uk-margin-large-top">New in Blurtdev</h3>
+                <div id="blurt-new"><span class="fa fa-spinner fa-spin" style="color: #ccc;"></span></div>
             </div>
             <div class="uk-width-large-1-3 uk-width-medium-1-2">
                 <h3 class="uk-margin-large-top">Hot in Programming</h3>
-                <div id="steemit-hot"><span class="fa fa-spinner fa-spin" style="color: #ccc;"></span></div>
+                <div id="blurt-hot"><span class="fa fa-spinner fa-spin" style="color: #ccc;"></span></div>
             </div>
             <div class="uk-width-large-1-3 uk-width-medium-1-2">
                 <h3 class="uk-margin-large-top">Trending (All)</h3>
-                <div id="steemit-trending"><span class="fa fa-spinner fa-spin" style="color: #ccc;"></span></div>
+                <div id="blurt-trending"><span class="fa fa-spinner fa-spin" style="color: #ccc;"></span></div>
             </div>
             <div class="uk-width-1-1">
                 <h3 class="uk-margin-large-top">Full Post</h3>
-                <div id="steemit-full-post"><span class="fa fa-spinner fa-spin" style="color: #ccc;"></span></div>
+                <div id="blurt-full-post"><span class="fa fa-spinner fa-spin" style="color: #ccc;"></span></div>
             </div>
         </div>
     </div>
@@ -105,29 +105,29 @@
     </header>
     <div class="uk-container uk-container-center">
         <p>
-            The easiest way is to use the <a href="https://mktcode.github.io/steemit-widgets/generator.html">generator</a>. You can adjust a lot there but if you need an even more individual solution keep reading.
+            The easiest way is to use the <a href="https://mktcode.github.io/blurt-widgets/generator.html">generator</a>. You can adjust a lot there but if you need an even more individual solution keep reading.
         </p>
         <p>
             First you need to decide where to put the content. You only need an empty element with an id somewhere on
             your website.
         </p>
-        <pre><code class="html">&lt;h1&gt;My Steemit Blog&lt;/h1&gt;
+        <pre><code class="html">&lt;h1&gt;My Blurt Blog&lt;/h1&gt;
 &lt;div id=&quot;my-blog&quot;&gt;&lt;/div&gt;</code></pre>
         <p>
             Now add the necessary files to your website. You only need the <a
-                href="https://github.com/steemit/steem-js">javascript API for Steemit</a> and the plugin itself.
+                href="https://github.com/blurt/blurt-js">javascript API for Blurt</a> and the plugin itself.
             You don't have to download anything if you use the CDN links in the code below. Just copy these lines and
             paste them right before your closing <code>&lt;/body&gt;</code> tag.
         </p>
-        <pre><code class="html">&lt;script src=&quot;https://cdn.steemjs.com/lib/latest/steem.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://mktcode.github.io/steemit-widgets/assets/js/steemit-widgets.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+        <pre><code class="html">&lt;script src=&quot;https://cdn.blurtjs.com/lib/latest/blurt.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://mktcode.github.io/blurt-widgets/assets/js/blurt-widgets.min.js&quot;&gt;&lt;/script&gt;</code></pre>
         <p>
-            Next you need to initialize the widget you want. All the widget functions are accessible through the <code>steemitWidgets</code>
+            Next you need to initialize the widget you want. All the widget functions are accessible through the <code>blurtWidgets</code>
             object.
             In this example we'll use the <code>blog()</code> function to display your blog posts.
         </p>
         <pre><code class="html">&lt;script&gt;
-  steemitWidgets.blog({
+  blurtWidgets.blog({
     element: 'my-blog',
     user: 'your-username'
   });
@@ -139,13 +139,13 @@
     &lt;title&gt;My Website&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;h1&gt;My Steemit Blog&lt;/h1&gt;
+    &lt;h1&gt;My Blurt Blog&lt;/h1&gt;
     &lt;div id=&quot;my-blog&quot;&gt;&lt;/div&gt;
 
-    &lt;script src=&quot;https://cdn.steemjs.com/lib/latest/steem.min.js&quot;&gt;&lt;/script&gt;
-    &lt;script src=&quot;https://mktcode.github.io/steemit-widgets/assets/js/steemit-widgets.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://cdn.blurtjs.com/lib/latest/blurt.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://mktcode.github.io/blurt-widgets/assets/js/blurt-widgets.min.js&quot;&gt;&lt;/script&gt;
     &lt;script&gt;
-      steemitWidgets.blog({
+      blurtWidgets.blog({
         element: 'my-blog',
         user: 'your-username'
       });
@@ -165,12 +165,12 @@
     </header>
     <div class="uk-container uk-container-center">
         <p>
-            To adjust the display you can use a custom template with some placeholders for the content from steemit.
+            To adjust the display you can use a custom template with some placeholders for the content from blurt.
             There are two options to provide a template.
             You can pass the html directly to the <code>template</code> option like this:
         </p>
         <pre><code class="html">&lt;script&gt;
-  steemitWidgets.blog({
+  blurtWidgets.blog({
     element: 'my-blog',
     user: 'your-username',
     template: '&lt;div class="post"&gt;&lt;a href=&quot;${URL}&quot;&gt;${TITLE}&lt;/a&gt;&lt;br&gt;${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments&lt;/div&gt;'
@@ -190,7 +190,7 @@
 &lt;/template&gt;
 
 &lt;script&gt;
-  steemitWidgets.blog({
+  blurtWidgets.blog({
     element: 'my-blog',
     user: 'your-username',
     template: 'my-blog-post-template'
@@ -212,7 +212,7 @@
             placeholders.
         </p>
         <h3 id="options-profile">Profile</h3>
-        <pre><code class="javascript">steemitWidgets.profile(options);</code></pre>
+        <pre><code class="javascript">blurtWidgets.profile(options);</code></pre>
         <h4>Options</h4>
         <div class="table-wrapper">
             <table>
@@ -233,7 +233,7 @@
                 </tr>
                 <tr>
                     <td><i>username</i></td>
-                    <td>Sets the steemit.com username whose profile to show.</td>
+                    <td>Sets the blurt.com username whose profile to show.</td>
                     <td>String</td>
                     <td>mkt</td>
                 </tr>
@@ -244,7 +244,7 @@
                     </td>
                     <td>String</td>
                     <td><pre><code class="html">&lt;img width=&quot;100&quot; src=&quot;${IMAGE}&quot; /&gt;&lt;br&gt;
-&lt;a href=&quot;https://steemit.com/@${USER}&quot;&gt;@${USER}&lt;/a&gt;</code></pre></td>
+&lt;a href=&quot;https://blurt.com/@${USER}&quot;&gt;@${USER}&lt;/a&gt;</code></pre></td>
                 </tr>
                 <tr>
                     <td><i>reputationPrecision</i></td>
@@ -309,7 +309,7 @@
                 </tr>
                 <tr>
                     <td><i>${NAME}</i></td>
-                    <td>Outputs the alternative display name you can set in the steemit.com settings.</td>
+                    <td>Outputs the alternative display name you can set in the blurt.com settings.</td>
                 </tr>
                 <tr>
                     <td><i>${LOCATION}</i></td>
@@ -357,7 +357,7 @@
 
         <h3 id="options-ticker">Ticker</h3>
         <p>Source: <a href="https://coinmarketcap.com">coinmarketcap.com</a>. (Updated every 5 minutes.)</p>
-        <pre><code class="javascript">steemitWidgets.ticker(options);</code></pre>
+        <pre><code class="javascript">blurtWidgets.ticker(options);</code></pre>
         <h4>Options</h4>
         <div class="table-wrapper">
             <table>
@@ -380,7 +380,7 @@
                     <td><i>currency</i></td>
                     <td>Sets the currency.</td>
                     <td>String</td>
-                    <td>steem</td>
+                    <td>blurt</td>
                 </tr>
                 <tr>
                     <td><i>template</i></td>
@@ -486,8 +486,8 @@
         </div>
 
         <h3 id="options-blog-feed">Blog and Feed</h3>
-        <pre><code class="javascript">steemitWidgets.blog(options);
-steemitWidgets.feed(options);</code></pre>
+        <pre><code class="javascript">blurtWidgets.blog(options);
+blurtWidgets.feed(options);</code></pre>
         <h4>Options</h4>
         <div class="table-wrapper">
             <table>
@@ -508,7 +508,7 @@ steemitWidgets.feed(options);</code></pre>
                 </tr>
                 <tr>
                     <td><i>user</i></td>
-                    <td>Sets the steemit.com username whose blog/feed to show.</td>
+                    <td>Sets the blurt.com username whose blog/feed to show.</td>
                     <td>String</td>
                     <td>mkt</td>
                 </tr>
@@ -525,7 +525,7 @@ steemitWidgets.feed(options);</code></pre>
                     </td>
                     <td>String</td>
                     <td><pre><code class="html">&lt;div&gt;
-    &lt;a href=&quot;${URL}&quot;&gt;${TITLE}&lt;/a&gt;${RESTEEMED}&lt;br&gt;
+    &lt;a href=&quot;${URL}&quot;&gt;${TITLE}&lt;/a&gt;${REBLURTED}&lt;br&gt;
     ${Payout}, ${UPVOTES} Upvotes, ${COMMENTS} Comments
 &lt;/div&gt;</code></pre></td>
                 </tr>
@@ -534,14 +534,14 @@ steemitWidgets.feed(options);</code></pre>
                     <td>Sets the URL for a default image if there is no post image.</td>
                     <td>String</td>
                     <td>
-                        <a href="https://steemitimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/steemit-logo.png">show</a>
+                        <a href="https://blurtimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/blurt-logo.png">show</a>
                     </td>
                 </tr>
                 <tr>
-                    <td><i>resteemedIndicator</i></td>
-                    <td>Sets the HTML displayed by <i>${RESTEEMED}</i> placeholder if a post was resteemed.</td>
+                    <td><i>reblurtedIndicator</i></td>
+                    <td>Sets the HTML displayed by <i>${REBLURTED}</i> placeholder if a post was reblurted.</td>
                     <td>String</td>
-                    <td> (resteemed)</td>
+                    <td> (reblurted)</td>
                 </tr>
                 <tr>
                     <td><i>payoutPrecision</i></td>
@@ -597,14 +597,14 @@ steemitWidgets.feed(options);</code></pre>
                     <td>Outputs the author's username.</td>
                 </tr>
                 <tr>
-                    <td><i>${RESTEEMED}</i></td>
-                    <td>Outputs the HTML provided in the <code>resteemedIndicator</code> option when a post was
-                        resteemed.
+                    <td><i>${REBLURTED}</i></td>
+                    <td>Outputs the HTML provided in the <code>reblurtedIndicator</code> option when a post was
+                        reblurted.
                     </td>
                 </tr>
                 <tr>
-                    <td><i>${RESTEEMEDBY}</i></td>
-                    <td>Outputs the username (prefixed with "resteemed by") of the user who resteemed this post.</td>
+                    <td><i>${REBLURTEDBY}</i></td>
+                    <td>Outputs the username (prefixed with "reblurted by") of the user who reblurted this post.</td>
                 </tr>
                 <tr>
                     <td><i>${DATE}</i></td>
@@ -640,9 +640,9 @@ steemitWidgets.feed(options);</code></pre>
         </div>
 
         <h3 id="options-new-hot-trending">New, Hot and Trending</h3>
-        <pre><code class="javascript">steemitWidgets.new(options);
-steemitWidgets.hot(options);
-steemitWidgets.trending(options);</code></pre>
+        <pre><code class="javascript">blurtWidgets.new(options);
+blurtWidgets.hot(options);
+blurtWidgets.trending(options);</code></pre>
         <h4>Options</h4>
         <div class="table-wrapper">
             <table>
@@ -689,7 +689,7 @@ steemitWidgets.trending(options);</code></pre>
                     <td>Sets the URL for a default image if there is no post image.</td>
                     <td>String</td>
                     <td>
-                        <a href="https://steemitimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/steemit-logo.png">show</a>
+                        <a href="https://blurtimages.com/DQmXYX9hqSNcikTK8ARb61BPnTk4CKMhaiqr22iCKD8CKsp/blurt-logo.png">show</a>
                     </td>
                 </tr>
                 <tr>
@@ -779,7 +779,7 @@ steemitWidgets.trending(options);</code></pre>
         </div>
 
         <h3 id="options-full-post">Full Post</h3>
-        <pre><code class="javascript">steemitWidgets.fullPost(options);</code></pre>
+        <pre><code class="javascript">blurtWidgets.fullPost(options);</code></pre>
         <h4>Options</h4>
         <div class="table-wrapper">
             <table>
@@ -808,7 +808,7 @@ steemitWidgets.trending(options);</code></pre>
                     <td><i>permlink</i></td>
                     <td>Sets the permlink of the post.</td>
                     <td>String</td>
-                    <td>steemit-widgets-full-post-widget</td>
+                    <td>blurt-widgets-full-post-widget</td>
                 </tr>
                 <tr>
                     <td><i>template</i></td>
@@ -858,9 +858,9 @@ steemitWidgets.trending(options);</code></pre>
     let tagsHtml = '',
         i;
     for (i = 0; i < tags.length; i++) {
-      tagsHtml += '&lt;a href=&quot;https://steemit.com/trending/' + tags[i] + '&quot;&gt;' + tags[i] + '&lt;/a&gt;';
+      tagsHtml += '&lt;a href=&quot;https://blurt.com/trending/' + tags[i] + '&quot;&gt;' + tags[i] + '&lt;/a&gt;';
     }
-    return '&lt;div class=&quot;steemit-full-post-tags&quot;&gt;' + tagsHtml + '&lt;/div&gt;';
+    return '&lt;div class=&quot;blurt-full-post-tags&quot;&gt;' + tagsHtml + '&lt;/div&gt;';
 }</code></pre></td>
                 </tr>
                 </tbody>
@@ -934,13 +934,13 @@ steemitWidgets.trending(options);</code></pre>
     <div class="uk-container uk-container-center">
         <p>
             If you want to format the post dates you can use the <code>dateCallback</code> option. Here is an example of
-            how to display realtive times like "1 hour ago" like on steemit.com with <a href="https://momentjs.com">moment.js</a>.
+            how to display realtive times like "1 hour ago" like on blurt.com with <a href="https://momentjs.com">moment.js</a>.
         </p>
-        <pre><code class="html">&lt;script src=&quot;https://cdn.steemjs.com/lib/latest/steem.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://mktcode.github.io/steemit-widgets/assets/js/steemit-widgets.min.js&quot;&gt;&lt;/script&gt;
+        <pre><code class="html">&lt;script src=&quot;https://cdn.blurtjs.com/lib/latest/blurt.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://mktcode.github.io/blurt-widgets/assets/js/blurt-widgets.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
-  steemitWidgets.blog({
+  blurtWidgets.blog({
     element: 'my-blog',
     user: 'your-username',
     dateCallback: function (date) {
@@ -950,7 +950,7 @@ steemitWidgets.trending(options);</code></pre>
 &lt;/script&gt;</code></pre>
         <p>
             You have to be careful because javascript works with your local time which might be different from what
-            steemit.com shows.
+            blurt.com shows.
             The above example takes care of this by converting dates to UTC.
         </p>
     </div>
@@ -965,16 +965,16 @@ steemitWidgets.trending(options);</code></pre>
             If your website uses jQuery you can use the built-in jQuery syntax.
         </p>
         <pre><code class="html">&lt;script src=&quot;https://code.jquery.com/jquery-3.2.1.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://cdn.steemjs.com/lib/latest/steem.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://mktcode.github.io/steemit-widgets/assets/js/steemit-widgets.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://cdn.blurtjs.com/lib/latest/blurt.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://mktcode.github.io/blurt-widgets/assets/js/blurt-widgets.min.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
-  $('#my-profile').steemitProfile({user: 'your-username'});
-  $('#my-blog').steemitBlog({user: 'your-username'});
-  $('#my-feed').steemitFeed({user: 'your-username'});
-  $('#my-post').steemitFullPost({author: 'your-username', permlink: 'your-posts-permlink'});
-  $('#new-posts').steemitNew();
-  $('#hot-posts').steemitHot();
-  $('#trending-posts').steemitTrending();
+  $('#my-profile').blurtProfile({user: 'your-username'});
+  $('#my-blog').blurtBlog({user: 'your-username'});
+  $('#my-feed').blurtFeed({user: 'your-username'});
+  $('#my-post').blurtFullPost({author: 'your-username', permlink: 'your-posts-permlink'});
+  $('#new-posts').blurtNew();
+  $('#hot-posts').blurtHot();
+  $('#trending-posts').blurtTrending();
 &lt;/script&gt;</code></pre>
         <p>
             You can now omit the element option. Just make sure jQuery is included before the plugin.
@@ -985,7 +985,7 @@ steemitWidgets.trending(options);</code></pre>
 <!-- Footer -->
 <footer id="footer">
     <ul class="icons">
-        <li><a href="https://github.com/mktcode/steemit-widgets" class="icon fa-github"><span
+        <li><a href="https://github.com/mktcode/blurt-widgets" class="icon fa-github"><span
                 class="label">GitHub</span></a></li>
     </ul>
     <p>
@@ -1000,18 +1000,18 @@ steemitWidgets.trending(options);</code></pre>
             <sup class="uk-text-small">1N2v1bPyST4BNv8rvmEzwr22EZQPSefqkt</sup>
         </div>
     </div>
-    <p class="copyright">Plugin created by <a href="https://steemit.com/@mkt">@mkt</a>.<br>Template "Fractal" by: <a
+    <p class="copyright">Plugin created by <a href="https://blurt.com/@mkt">@mkt</a>.<br>Template "Fractal" by: <a
             href="http://html5up.net">HTML5 UP</a></p>
 </footer>
 
 <!-- Demo Templates -->
-<template id="steemit-profile-template">
+<template id="blurt-profile-template">
     <article class="uk-comment">
         <header class="uk-comment-header uk-text-left"
                 style="background: url(${COVERIMAGE}) center center; background-size: cover;">
             <div class="uk-comment-avatar"
                  style="background: url(${IMAGE}) center center; background-size: cover; width: 50px; height: 50px; border-radius: 36px;"></div>
-            <h4 class="uk-comment-title"><a href="https://steemit.com/@${USER}">@${USER}</a>
+            <h4 class="uk-comment-title"><a href="https://blurt.com/@${USER}">@${USER}</a>
                 <div class="uk-badge uk-badge-notification">${REPUTATION}</div>
             </h4>
             <div class="uk-comment-meta"><a href="${WEBSITE}">${WEBSITE}</a><br>${ABOUT}</div>
@@ -1029,7 +1029,7 @@ steemitWidgets.trending(options);</code></pre>
     </article>
 </template>
 
-<template id="steemit-ticker-template">
+<template id="blurt-ticker-template">
     <article class="uk-comment">
         <header class="uk-comment-header uk-text-left">
             <div class="uk-comment-avatar"
@@ -1053,19 +1053,19 @@ steemitWidgets.trending(options);</code></pre>
     </article>
 </template>
 
-<template id="steemit-blog-template">
+<template id="blurt-blog-template">
     <div class="uk-width-medium-1-3">
-        <div class="steemit-post uk-margin-bottom">
+        <div class="blurt-post uk-margin-bottom">
             <article class="uk-comment">
                 <header class="uk-comment-header uk-text-left">
                     <div class="uk-comment-avatar" style="background-image: url(${IMAGE});"></div>
-                    <h4 class="uk-comment-title uk-text-truncate"><a href="${URL}">${RESTEEMED} ${TITLE}</a></h4>
+                    <h4 class="uk-comment-title uk-text-truncate"><a href="${URL}">${REBLURTED} ${TITLE}</a></h4>
                     <div class="uk-comment-meta">
-                        ${DATE} by <a href="https://steemit.com/@${AUTHOR}">${AUTHOR}</a> in <a
-                            href="https://steemit.com/trending/${CATEGORY}">${CATEGORY}</a>
+                        ${DATE} by <a href="https://blurt.com/@${AUTHOR}">${AUTHOR}</a> in <a
+                            href="https://blurt.com/trending/${CATEGORY}">${CATEGORY}</a>
                     </div>
                 </header>
-                <a href="${URL}" class="steemit-post-image" style="background-image: url(${IMAGE});"></a>
+                <a href="${URL}" class="blurt-post-image" style="background-image: url(${IMAGE});"></a>
                 <div class="uk-comment-body">
                     <div class="uk-grid">
                         <div class="uk-width-1-3"><i class="uk-icon-thumbs-o-up"></i> ${UPVOTES}</div>
@@ -1079,20 +1079,20 @@ steemitWidgets.trending(options);</code></pre>
 </template>
 </template>
 
-<template id="steemit-feed-template">
+<template id="blurt-feed-template">
     <div class="uk-width-medium-1-3">
-        <div class="steemit-post uk-margin-bottom">
+        <div class="blurt-post uk-margin-bottom">
             <article class="uk-comment">
                 <header class="uk-comment-header uk-text-left">
                     <div class="uk-comment-avatar" style="background-image: url(${IMAGE});"></div>
-                    <h4 class="uk-comment-title uk-text-truncate"><a href="${URL}">${RESTEEMED} ${TITLE}</a></h4>
+                    <h4 class="uk-comment-title uk-text-truncate"><a href="${URL}">${REBLURTED} ${TITLE}</a></h4>
                     <div class="uk-comment-meta">
-                        ${DATE} by <a href="https://steemit.com/@${AUTHOR}">${AUTHOR}</a> in <a
-                            href="https://steemit.com/trending/${CATEGORY}">${CATEGORY}</a><br>
-                        ${RESTEEMEDBY}
+                        ${DATE} by <a href="https://blurt.com/@${AUTHOR}">${AUTHOR}</a> in <a
+                            href="https://blurt.com/trending/${CATEGORY}">${CATEGORY}</a><br>
+                        ${REBLURTEDBY}
                     </div>
                 </header>
-                <a href="${URL}" class="steemit-post-image" style="background-image: url(${IMAGE});"></a>
+                <a href="${URL}" class="blurt-post-image" style="background-image: url(${IMAGE});"></a>
                 <div class="uk-comment-body">
                     <div class="uk-grid">
                         <div class="uk-width-1-3"><i class="uk-icon-thumbs-o-up"></i> ${UPVOTES}</div>
@@ -1105,18 +1105,18 @@ steemitWidgets.trending(options);</code></pre>
     </div>
 </template>
 
-<template id="steemit-post-template">
-    <div class="steemit-post uk-margin-bottom">
+<template id="blurt-post-template">
+    <div class="blurt-post uk-margin-bottom">
         <article class="uk-comment">
             <header class="uk-comment-header uk-text-left">
                 <div class="uk-comment-avatar" style="background-image: url(${IMAGE});"></div>
                 <h4 class="uk-comment-title uk-text-truncate"><a href="${URL}">${TITLE}</a></h4>
                 <div class="uk-comment-meta">
-                    ${DATE} by <a href="https://steemit.com/@${AUTHOR}">${AUTHOR}</a> in <a
-                        href="https://steemit.com/trending/${CATEGORY}">${CATEGORY}</a>
+                    ${DATE} by <a href="https://blurt.com/@${AUTHOR}">${AUTHOR}</a> in <a
+                        href="https://blurt.com/trending/${CATEGORY}">${CATEGORY}</a>
                 </div>
             </header>
-            <a href="${URL}" class="steemit-post-image" style="background-image: url(${IMAGE});"></a>
+            <a href="${URL}" class="blurt-post-image" style="background-image: url(${IMAGE});"></a>
             <div class="uk-comment-body">
                 <div class="uk-grid">
                     <div class="uk-width-1-3"><i class="uk-icon-thumbs-o-up"></i> ${UPVOTES}</div>
@@ -1128,8 +1128,8 @@ steemitWidgets.trending(options);</code></pre>
     </div>
 </template>
 
-<template id="steemit-full-post-template">
-    <div class="steemit-full-post uk-margin-bottom">
+<template id="blurt-full-post-template">
+    <div class="blurt-full-post uk-margin-bottom">
         <article class="uk-article uk-text-left">
             <h1 class="uk-article-title uk-margin-bottom-remove">
                 <a href="${URL}">
@@ -1137,7 +1137,7 @@ steemitWidgets.trending(options);</code></pre>
                 </a>
             </h1>
             <p class="uk-article-meta uk-margin-small-bottom">
-                ${DATE} by <a href="https://steemit.com/@" target="_blank">${AUTHOR}</a> <span class="uk-badge uk-badge-notification uk-text-small">${REPUTATION}</span> in <a href="https://steemit.com/trending/${CATEGORY}">${CATEGORY}</a>
+                ${DATE} by <a href="https://blurt.com/@" target="_blank">${AUTHOR}</a> <span class="uk-badge uk-badge-notification uk-text-small">${REPUTATION}</span> in <a href="https://blurt.com/trending/${CATEGORY}">${CATEGORY}</a>
                 <i class="uk-icon-thumbs-o-up uk-margin-small-left"></i> ${UPVOTES} <i class="uk-icon-comments uk-margin-small-left"></i> ${COMMENTS} <i class="uk-icon-dollar uk-margin-small-left"></i> ${PAYOUT}
             </p>
             <div class="uk-margin-small-bottom">${TAGS}</div>
@@ -1160,70 +1160,70 @@ steemitWidgets.trending(options);</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
 
-<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
-<script src="https://mktcode.github.io/steemit-widgets/assets/js/steemit-widgets.min.js"></script>
+<script src="https://cdn.blurtjs.com/lib/latest/blurt.min.js"></script>
+<script src="https://mktcode.github.io/blurt-widgets/assets/js/blurt-widgets.min.js"></script>
 <script>
     $(function () {
-        steem.api.setOptions({ url: 'https://api.steemit.com' });
-      
+        blurt.api.setOptions({ url: 'https://api.blurt.com' });
+
         hljs.configure({style: 'github'});
         hljs.initHighlightingOnLoad();
 
-        $('#steemit-profile').steemitProfile({
-            template: 'steemit-profile-template',
+        $('#blurt-profile').blurtProfile({
+            template: 'blurt-profile-template',
             reputationPrecision: 1
         });
 
-        $('#steemit-ticker').steemitTicker({
-            template: 'steemit-ticker-template'
+        $('#blurt-ticker').blurtTicker({
+            template: 'blurt-ticker-template'
         });
 
-        $('#steemit-blog').steemitBlog({
-            template: 'steemit-blog-template',
+        $('#blurt-blog').blurtBlog({
+            template: 'blurt-blog-template',
             limit: 3,
-            resteemedIndicator: '<i class="uk-icon-refresh uk-text-success"></i> ',
+            reblurtedIndicator: '<i class="uk-icon-refresh uk-text-success"></i> ',
             dateCallback: function (date) {
                 return moment.utc(date).from(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
             }
         });
 
-        $('#steemit-feed').steemitFeed({
-            template: 'steemit-feed-template',
+        $('#blurt-feed').blurtFeed({
+            template: 'blurt-feed-template',
             limit: 3,
-            resteemedIndicator: '<i class="uk-icon-refresh uk-text-success"></i> ',
+            reblurtedIndicator: '<i class="uk-icon-refresh uk-text-success"></i> ',
             dateCallback: function (date) {
                 return moment.utc(date).from(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
             }
         });
 
-        $('#steemit-new').steemitNew({
-            tag: 'steemdev',
-            template: 'steemit-post-template',
+        $('#blurt-new').blurtNew({
+            tag: 'blurtdev',
+            template: 'blurt-post-template',
             limit: 3,
             dateCallback: function (date) {
                 return moment.utc(date).from(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
             }
         });
 
-        $('#steemit-hot').steemitHot({
+        $('#blurt-hot').blurtHot({
             tag: 'programming',
-            template: 'steemit-post-template',
+            template: 'blurt-post-template',
             limit: 3,
             dateCallback: function (date) {
                 return moment.utc(date).from(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
             }
         });
 
-        $('#steemit-trending').steemitTrending({
-            template: 'steemit-post-template',
+        $('#blurt-trending').blurtTrending({
+            template: 'blurt-post-template',
             limit: 3,
             dateCallback: function (date) {
                 return moment.utc(date).from(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
             }
         });
 
-        $('#steemit-full-post').steemitFullPost({
-            template: 'steemit-full-post-template',
+        $('#blurt-full-post').blurtFullPost({
+            template: 'blurt-full-post-template',
             permlink: 'd-tube-landingpage-contributor-report-4',
             dateCallback: function (date) {
                 return moment.utc(date).from(moment.utc().format('YYYY-MM-DD HH:mm:ss'));
@@ -1239,7 +1239,7 @@ steemitWidgets.trending(options);</code></pre>
 
                 body = remarkable.render(body);
                 body = body.replace(/([\s\n\r\t><(,])(@\w+\b)/gi, function (m1, m2, m3) {
-                    return m2 + '<a href="https://steemit.com/' + m3 + '">' + m3 + '</a>';
+                    return m2 + '<a href="https://blurt.com/' + m3 + '">' + m3 + '</a>';
                 });
 
                 return body;
