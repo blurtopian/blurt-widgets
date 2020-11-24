@@ -28,7 +28,7 @@
     <div class="content">
         <img src="./images/blurt-logo.png"/>
         <h1><a href="#">Blurt Widgets</a></h1>
-        <p>A simple way to display content<br>from <a href="https://blurt.com">blurt.com</a> on your website.</p>
+        <p>A simple way to display content<br>from <a href="https://blurt.world">blurt.world</a> on your website.</p>
         <ul class="actions">
             <li><a href="generator.html" class="button special icon fa-magic">Generator</a></li>
         </ul>
@@ -233,7 +233,7 @@
                 </tr>
                 <tr>
                     <td><i>username</i></td>
-                    <td>Sets the blurt.com username whose profile to show.</td>
+                    <td>Sets the blurt.world username whose profile to show.</td>
                     <td>String</td>
                     <td>mkt</td>
                 </tr>
@@ -244,7 +244,7 @@
                     </td>
                     <td>String</td>
                     <td><pre><code class="html">&lt;img width=&quot;100&quot; src=&quot;${IMAGE}&quot; /&gt;&lt;br&gt;
-&lt;a href=&quot;https://blurt.com/@${USER}&quot;&gt;@${USER}&lt;/a&gt;</code></pre></td>
+&lt;a href=&quot;https://blurt.world/@${USER}&quot;&gt;@${USER}&lt;/a&gt;</code></pre></td>
                 </tr>
                 <tr>
                     <td><i>reputationPrecision</i></td>
@@ -309,7 +309,7 @@
                 </tr>
                 <tr>
                     <td><i>${NAME}</i></td>
-                    <td>Outputs the alternative display name you can set in the blurt.com settings.</td>
+                    <td>Outputs the alternative display name you can set in the blurt.world settings.</td>
                 </tr>
                 <tr>
                     <td><i>${LOCATION}</i></td>
@@ -508,7 +508,7 @@ blurtWidgets.feed(options);</code></pre>
                 </tr>
                 <tr>
                     <td><i>user</i></td>
-                    <td>Sets the blurt.com username whose blog/feed to show.</td>
+                    <td>Sets the blurt.world username whose blog/feed to show.</td>
                     <td>String</td>
                     <td>mkt</td>
                 </tr>
@@ -858,7 +858,7 @@ blurtWidgets.trending(options);</code></pre>
     let tagsHtml = '',
         i;
     for (i = 0; i < tags.length; i++) {
-      tagsHtml += '&lt;a href=&quot;https://blurt.com/trending/' + tags[i] + '&quot;&gt;' + tags[i] + '&lt;/a&gt;';
+      tagsHtml += '&lt;a href=&quot;https://blurt.world/trending/' + tags[i] + '&quot;&gt;' + tags[i] + '&lt;/a&gt;';
     }
     return '&lt;div class=&quot;blurt-full-post-tags&quot;&gt;' + tagsHtml + '&lt;/div&gt;';
 }</code></pre></td>
@@ -934,7 +934,7 @@ blurtWidgets.trending(options);</code></pre>
     <div class="uk-container uk-container-center">
         <p>
             If you want to format the post dates you can use the <code>dateCallback</code> option. Here is an example of
-            how to display realtive times like "1 hour ago" like on blurt.com with <a href="https://momentjs.com">moment.js</a>.
+            how to display realtive times like "1 hour ago" like on blurt.world with <a href="https://momentjs.com">moment.js</a>.
         </p>
         <pre><code class="html">&lt;script src=&quot;https://cdn.blurtjs.com/lib/latest/blurt.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;https://mktcode.github.io/blurt-widgets/assets/js/blurt-widgets.min.js&quot;&gt;&lt;/script&gt;
@@ -950,7 +950,7 @@ blurtWidgets.trending(options);</code></pre>
 &lt;/script&gt;</code></pre>
         <p>
             You have to be careful because javascript works with your local time which might be different from what
-            blurt.com shows.
+            blurt.world shows.
             The above example takes care of this by converting dates to UTC.
         </p>
     </div>
@@ -1000,7 +1000,7 @@ blurtWidgets.trending(options);</code></pre>
             <sup class="uk-text-small">1N2v1bPyST4BNv8rvmEzwr22EZQPSefqkt</sup>
         </div>
     </div>
-    <p class="copyright">Plugin created by <a href="https://blurt.com/@mkt">@mkt</a>.<br>Template "Fractal" by: <a
+    <p class="copyright">Plugin created by <a href="https://blurt.world/@mkt">@mkt</a>.<br>Template "Fractal" by: <a
             href="http://html5up.net">HTML5 UP</a></p>
 </footer>
 
@@ -1011,7 +1011,7 @@ blurtWidgets.trending(options);</code></pre>
                 style="background: url(${COVERIMAGE}) center center; background-size: cover;">
             <div class="uk-comment-avatar"
                  style="background: url(${IMAGE}) center center; background-size: cover; width: 50px; height: 50px; border-radius: 36px;"></div>
-            <h4 class="uk-comment-title"><a href="https://blurt.com/@${USER}">@${USER}</a>
+            <h4 class="uk-comment-title"><a href="https://blurt.world/@${USER}">@${USER}</a>
                 <div class="uk-badge uk-badge-notification">${REPUTATION}</div>
             </h4>
             <div class="uk-comment-meta"><a href="${WEBSITE}">${WEBSITE}</a><br>${ABOUT}</div>
@@ -1061,8 +1061,8 @@ blurtWidgets.trending(options);</code></pre>
                     <div class="uk-comment-avatar" style="background-image: url(${IMAGE});"></div>
                     <h4 class="uk-comment-title uk-text-truncate"><a href="${URL}">${REBLURTED} ${TITLE}</a></h4>
                     <div class="uk-comment-meta">
-                        ${DATE} by <a href="https://blurt.com/@${AUTHOR}">${AUTHOR}</a> in <a
-                            href="https://blurt.com/trending/${CATEGORY}">${CATEGORY}</a>
+                        ${DATE} by <a href="https://blurt.world/@${AUTHOR}">${AUTHOR}</a> in <a
+                            href="https://blurt.world/trending/${CATEGORY}">${CATEGORY}</a>
                     </div>
                 </header>
                 <a href="${URL}" class="blurt-post-image" style="background-image: url(${IMAGE});"></a>
@@ -1087,8 +1087,8 @@ blurtWidgets.trending(options);</code></pre>
                     <div class="uk-comment-avatar" style="background-image: url(${IMAGE});"></div>
                     <h4 class="uk-comment-title uk-text-truncate"><a href="${URL}">${REBLURTED} ${TITLE}</a></h4>
                     <div class="uk-comment-meta">
-                        ${DATE} by <a href="https://blurt.com/@${AUTHOR}">${AUTHOR}</a> in <a
-                            href="https://blurt.com/trending/${CATEGORY}">${CATEGORY}</a><br>
+                        ${DATE} by <a href="https://blurt.world/@${AUTHOR}">${AUTHOR}</a> in <a
+                            href="https://blurt.world/trending/${CATEGORY}">${CATEGORY}</a><br>
                         ${REBLURTEDBY}
                     </div>
                 </header>
@@ -1112,8 +1112,8 @@ blurtWidgets.trending(options);</code></pre>
                 <div class="uk-comment-avatar" style="background-image: url(${IMAGE});"></div>
                 <h4 class="uk-comment-title uk-text-truncate"><a href="${URL}">${TITLE}</a></h4>
                 <div class="uk-comment-meta">
-                    ${DATE} by <a href="https://blurt.com/@${AUTHOR}">${AUTHOR}</a> in <a
-                        href="https://blurt.com/trending/${CATEGORY}">${CATEGORY}</a>
+                    ${DATE} by <a href="https://blurt.world/@${AUTHOR}">${AUTHOR}</a> in <a
+                        href="https://blurt.world/trending/${CATEGORY}">${CATEGORY}</a>
                 </div>
             </header>
             <a href="${URL}" class="blurt-post-image" style="background-image: url(${IMAGE});"></a>
@@ -1137,7 +1137,7 @@ blurtWidgets.trending(options);</code></pre>
                 </a>
             </h1>
             <p class="uk-article-meta uk-margin-small-bottom">
-                ${DATE} by <a href="https://blurt.com/@" target="_blank">${AUTHOR}</a> <span class="uk-badge uk-badge-notification uk-text-small">${REPUTATION}</span> in <a href="https://blurt.com/trending/${CATEGORY}">${CATEGORY}</a>
+                ${DATE} by <a href="https://blurt.world/@" target="_blank">${AUTHOR}</a> <span class="uk-badge uk-badge-notification uk-text-small">${REPUTATION}</span> in <a href="https://blurt.world/trending/${CATEGORY}">${CATEGORY}</a>
                 <i class="uk-icon-thumbs-o-up uk-margin-small-left"></i> ${UPVOTES} <i class="uk-icon-comments uk-margin-small-left"></i> ${COMMENTS} <i class="uk-icon-dollar uk-margin-small-left"></i> ${PAYOUT}
             </p>
             <div class="uk-margin-small-bottom">${TAGS}</div>
@@ -1164,7 +1164,7 @@ blurtWidgets.trending(options);</code></pre>
 <script src="https://mktcode.github.io/blurt-widgets/assets/js/blurt-widgets.min.js"></script>
 <script>
     $(function () {
-        blurt.api.setOptions({ url: 'https://api.blurt.com' });
+        blurt.api.setOptions({ url: 'https://api.blurt.world' });
 
         hljs.configure({style: 'github'});
         hljs.initHighlightingOnLoad();
@@ -1239,7 +1239,7 @@ blurtWidgets.trending(options);</code></pre>
 
                 body = remarkable.render(body);
                 body = body.replace(/([\s\n\r\t><(,])(@\w+\b)/gi, function (m1, m2, m3) {
-                    return m2 + '<a href="https://blurt.com/' + m3 + '">' + m3 + '</a>';
+                    return m2 + '<a href="https://blurt.world/' + m3 + '">' + m3 + '</a>';
                 });
 
                 return body;

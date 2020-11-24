@@ -1,4 +1,4 @@
-blurt.api.setOptions({ url: 'https://api.blurt.com' });
+blurt.api.setOptions({ url: 'https://rpc.blurt.world', useAppbaseApi: true });
 
 var generator = new Vue({
     el: '#generator',

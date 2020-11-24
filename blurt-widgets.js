@@ -102,7 +102,7 @@ blurtWidgets.blog = function(options) {
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
             var template = blurtWidgets.getTemplate(settings.template)
-              .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
+              .replace(/\${URL}/gi, 'https://blurt.world' + posts[i].url)
               .replace(/\${TITLE}/gi, posts[i].title)
               .replace(/\${AUTHOR}/gi, posts[i].author)
               .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
@@ -160,7 +160,7 @@ blurtWidgets.feed = function(options) {
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
             var template = blurtWidgets.getTemplate(settings.template)
-            .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
+            .replace(/\${URL}/gi, 'https://blurt.world' + posts[i].url)
             .replace(/\${TITLE}/gi, posts[i].title)
             .replace(/\${AUTHOR}/gi, posts[i].author)
             .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
@@ -217,7 +217,7 @@ blurtWidgets.new = function(options) {
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
             var template = blurtWidgets.getTemplate(settings.template)
-            .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
+            .replace(/\${URL}/gi, 'https://blurt.world' + posts[i].url)
             .replace(/\${TITLE}/gi, posts[i].title)
             .replace(/\${AUTHOR}/gi, posts[i].author)
             .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
@@ -272,7 +272,7 @@ blurtWidgets.hot = function(options) {
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
             var template = blurtWidgets.getTemplate(settings.template)
-            .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
+            .replace(/\${URL}/gi, 'https://blurt.world' + posts[i].url)
             .replace(/\${TITLE}/gi, posts[i].title)
             .replace(/\${AUTHOR}/gi, posts[i].author)
             .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
@@ -327,7 +327,7 @@ blurtWidgets.trending = function(options) {
           for (var i = 0; i < posts.length; i++) {
             var metaData = JSON.parse(posts[i].json_metadata);
             var template = blurtWidgets.getTemplate(settings.template)
-            .replace(/\${URL}/gi, 'https://blurt.com' + posts[i].url)
+            .replace(/\${URL}/gi, 'https://blurt.world' + posts[i].url)
             .replace(/\${TITLE}/gi, posts[i].title)
             .replace(/\${AUTHOR}/gi, posts[i].author)
             .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(posts[i].author_reputation, settings.reputationPrecision))
@@ -370,7 +370,7 @@ blurtWidgets.fullPost = function(options) {
       var tagsHtml = '',
           i;
       for (i = 0; i < tags.length; i++) {
-          tagsHtml += '<a href="https://blurt.com/trending/' + tags[i] + '">' + tags[i] + '</a>';
+          tagsHtml += '<a href="https://blurt.world/trending/' + tags[i] + '">' + tags[i] + '</a>';
       }
       return '<div class="blurt-full-post-tags">' + tagsHtml + '</div>';
     }
@@ -383,7 +383,7 @@ blurtWidgets.fullPost = function(options) {
       if (!err && post) {
         var metaData = JSON.parse(post.json_metadata);
         var template = blurtWidgets.getTemplate(settings.template)
-        .replace(/\${URL}/gi, 'https://blurt.com' + post.url)
+        .replace(/\${URL}/gi, 'https://blurt.world' + post.url)
         .replace(/\${TITLE}/gi, post.title)
         .replace(/\${AUTHOR}/gi, post.author)
         .replace(/\${REPUTATION}/gi, blurtWidgets.calculateReputation(post.author_reputation, settings.reputationPrecision))

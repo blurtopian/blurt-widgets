@@ -408,7 +408,7 @@
                     </div>
                 </div>
 
-                <p class="copyright">Created by <a href="https://blurt.com/@mkt">@mkt</a>.</p>
+                <p class="copyright">Created by <a href="https://blurt.world/@mkt">@mkt</a>.</p>
             </footer>
         </div>
 
@@ -420,7 +420,7 @@
                 <div v-bind:style="profileCoverStyle + ' background-color: ' + color + '; display: flex; border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px;'">
                     <div v-if="showAvatar" style="background: url(${IMAGE}) center center; background-size: cover; width: 50px; height: 50px; border-radius: 36px; margin: 10px;"></div>
                     <div style="flex: 1; margin: 10px; line-height: 18px; text-align: left;">
-                        <a v-if="showUsername" href="https://blurt.com/@${USER}" style="color: #fff; text-decoration: none;">@${USER}</a>
+                        <a v-if="showUsername" href="https://blurt.world/@${USER}" style="color: #fff; text-decoration: none;">@${USER}</a>
                         <span v-if="showReputation" v-bind:style="'background: ' + color + '; border-radius: 10px; color: #fff; font-size: 11px; padding: 2px 5px; font-weight: bold; border: solid 1px rgba(255,255,255,.5);'">${REPUTATION}</span><br v-if="showUsername || showReputation">
                         <a v-if="showWebsite" href="${WEBSITE}" style="color: #fff; font-size: 12px; text-decoration: none;">${WEBSITE}</a><br v-if="showWebsite">
                         <span v-if="showAbout" style="color: #fff; font-size: 12px;">${ABOUT}</span>
@@ -443,7 +443,7 @@
 
         <div id="blurt-profile-template-condenser" class="uk-hidden">
             <div v-bind:style="'font-size: 16px; padding: 10px; font-family: Source Sans Pro, Helvetica Neue, Helvetica, Arial, sans-serif; text-shadow: 1px 1px 4px #000;' + (showCover ? 'background-image: url(${COVERIMAGE}); background-position: center center; background-size: cover;' : 'background: #23579d; background: linear-gradient(180deg,#1a4072 0,#23579d);')">
-                <a href="https://blurt.com/@${USER}" style="color: #fff; text-decoration: none; line-height: 50px; display: blocK; text-align: center; font-size: 25px;">
+                <a href="https://blurt.world/@${USER}" style="color: #fff; text-decoration: none; line-height: 50px; display: blocK; text-align: center; font-size: 25px;">
                     <span v-if="showAvatar" style="background: url(${IMAGE}) center center; display: inline-block; background-size: cover; width: 50px; height: 50px; border-radius: 36px; vertical-align: middle; margin-right: 10px;"></span>
                     <b v-if="showUsername">${USER}</b>
                     <span v-if="showReputation" style="font-size: 20px;">(${REPUTATION})</span>
@@ -537,9 +537,9 @@
                 </h2>
                 <div style="font-size: 12px; color: #888; padding: 0 10px; padding-bottom: 5px; background: #fff; text-align: left;">
                     <span v-if="showDate">${DATE}</span>
-                    <span v-if="showAuthor">by <a href="https://blurt.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${AUTHOR}</a></span>
+                    <span v-if="showAuthor">by <a href="https://blurt.world/@${AUTHOR}" style="color: #444; text-decoration: none;">${AUTHOR}</a></span>
                     <span v-if="showReputation" style="border: solid 1px #ccc; border-radius: 10px; padding: 1px 4px; font-size: 11px;">${REPUTATION}</span>
-                    <span v-if="showCategory">in <a href="https://blurt.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${CATEGORY}</a></span>
+                    <span v-if="showCategory">in <a href="https://blurt.world/@${AUTHOR}" style="color: #444; text-decoration: none;">${CATEGORY}</a></span>
                 </div>
                 <div v-if="showUpvotes || showComments || showPayout" style="background: #fff; color: #888; border-top: solid 1px #ccc; display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 18px; line-height: 21px; padding: 10px 0 5px;">
                     <div v-if="showUpvotes" style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Chevron_Up_Circle"><circle cx="16" cy="16" r="15" stroke="#888" fill="none"></circle><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#888"></path></g></svg></span> ${UPVOTES}</b></div>
@@ -559,9 +559,9 @@
                 </h2>
                 <div style="font-size: 13px; color: #333; padding-bottom: 5px; text-align: left;">
                     <span v-if="showDate" style="color: #8a8a8a;">${DATE}</span>
-                    <span v-if="showAuthor">by <a href="https://blurt.com/@${AUTHOR}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${AUTHOR}</a></span>
+                    <span v-if="showAuthor">by <a href="https://blurt.world/@${AUTHOR}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${AUTHOR}</a></span>
                     <span v-if="showReputation" style="border: 1px solid #dadada; border-radius: 50%; padding: 1px 4px; font-size: 11px; color: #8a8a8a;">${REPUTATION}</span>
-                    <span v-if="showCategory">in <a href="https://blurt.com/@${CATEGORY}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${CATEGORY}</a></span>
+                    <span v-if="showCategory">in <a href="https://blurt.world/@${CATEGORY}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${CATEGORY}</a></span>
                 </div>
                 <a href="${URL}" v-if="showImage" v-bind:style="'border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;'"></a>
                 <div v-if="showUpvotes || showComments || showPayout" style="color: #888; display: table; table-layout: fixed; width: 100%; font-size: 14px; line-height: 21px; padding: 10px 0 5px;">
@@ -587,9 +587,9 @@
                 </h2>
                 <div style="font-size: 12px; color: #888; padding: 0 10px; padding-bottom: 5px; background: #fff; text-align: left;">
                     <span v-if="showDate">${DATE}</span>
-                    <span v-if="showAuthor">by <a href="https://blurt.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${AUTHOR}</a></span>
+                    <span v-if="showAuthor">by <a href="https://blurt.world/@${AUTHOR}" style="color: #444; text-decoration: none;">${AUTHOR}</a></span>
                     <span v-if="showReputation" style="border: solid 1px #ccc; border-radius: 10px; padding: 1px 4px; font-size: 11px;">${REPUTATION}</span>
-                    <span v-if="showCategory">in <a href="https://blurt.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${CATEGORY}</a></span>
+                    <span v-if="showCategory">in <a href="https://blurt.world/@${AUTHOR}" style="color: #444; text-decoration: none;">${CATEGORY}</a></span>
                     <br v-if="showReblurtedBy">
                     <span v-if="showReblurtedBy">${REBLURTEDBY}</span>
                 </div>
@@ -611,9 +611,9 @@
                 </h2>
                 <div style="font-size: 13px; color: #333; padding-bottom: 5px; text-align: left;">
                     <span v-if="showDate" style="color: #8a8a8a;">${DATE}</span>
-                    <span v-if="showAuthor">by <a href="https://blurt.com/@${AUTHOR}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${AUTHOR}</a></span>
+                    <span v-if="showAuthor">by <a href="https://blurt.world/@${AUTHOR}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${AUTHOR}</a></span>
                     <span v-if="showReputation" style="border: 1px solid #dadada; border-radius: 50%; padding: 1px 4px; font-size: 11px; color: #8a8a8a;">${REPUTATION}</span>
-                    <span v-if="showCategory">in <a href="https://blurt.com/@${CATEGORY}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${CATEGORY}</a></span>
+                    <span v-if="showCategory">in <a href="https://blurt.world/@${CATEGORY}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${CATEGORY}</a></span>
                 </div>
                 <a href="${URL}" v-if="showImage" v-bind:style="'border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;'"></a>
                 <div v-if="showUpvotes || showComments || showPayout" style="color: #888; display: table; table-layout: fixed; width: 100%; font-size: 14px; line-height: 21px; padding: 10px 0 5px;">
@@ -638,9 +638,9 @@
                 </h2>
                 <div style="font-size: 12px; color: #888; padding: 0 10px; padding-bottom: 5px; background: #fff; text-align: left;">
                     <span v-if="showDate">${DATE}</span>
-                    <span v-if="showAuthor">by <a href="https://blurt.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${AUTHOR}</a></span>
+                    <span v-if="showAuthor">by <a href="https://blurt.world/@${AUTHOR}" style="color: #444; text-decoration: none;">${AUTHOR}</a></span>
                     <span v-if="showReputation" style="border: solid 1px #ccc; border-radius: 10px; padding: 1px 4px; font-size: 11px;">${REPUTATION}</span>
-                    <span v-if="showCategory">in <a href="https://blurt.com/@${AUTHOR}" style="color: #444; text-decoration: none;">${CATEGORY}</a></span>
+                    <span v-if="showCategory">in <a href="https://blurt.world/@${AUTHOR}" style="color: #444; text-decoration: none;">${CATEGORY}</a></span>
                 </div>
                 <div v-if="showUpvotes || showComments || showPayout" style="background: #fff; color: #888; border-top: solid 1px #ccc; display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 18px; line-height: 21px; padding: 10px 0 5px;">
                     <div v-if="showUpvotes" style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Chevron_Up_Circle"><circle cx="16" cy="16" r="15" stroke="#888" fill="none"></circle><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#888"></path></g></svg></span> ${UPVOTES}</b></div>
@@ -659,9 +659,9 @@
                 </h2>
                 <div style="font-size: 13px; color: #333; padding-bottom: 5px; text-align: left;">
                     <span v-if="showDate" style="color: #8a8a8a;">${DATE}</span>
-                    <span v-if="showAuthor">by <a href="https://blurt.com/@${AUTHOR}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${AUTHOR}</a></span>
+                    <span v-if="showAuthor">by <a href="https://blurt.world/@${AUTHOR}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${AUTHOR}</a></span>
                     <span v-if="showReputation" style="border: 1px solid #dadada; border-radius: 50%; padding: 1px 4px; font-size: 11px; color: #8a8a8a;">${REPUTATION}</span>
-                    <span v-if="showCategory">in <a href="https://blurt.com/@${CATEGORY}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${CATEGORY}</a></span>
+                    <span v-if="showCategory">in <a href="https://blurt.world/@${CATEGORY}" style="color: #8a8a8a; text-decoration: none; font-weight: bold;">${CATEGORY}</a></span>
                 </div>
                 <a href="${URL}" v-if="showImage" v-bind:style="'border-top-right-radius: ' + Math.max(borderRadius - border, 0) + 'px; border-top-left-radius: ' + Math.max(borderRadius - border, 0) + 'px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;'"></a>
                 <div v-if="showUpvotes || showComments || showPayout" style="color: #888; display: table; table-layout: fixed; width: 100%; font-size: 14px; line-height: 21px; padding: 10px 0 5px;">
